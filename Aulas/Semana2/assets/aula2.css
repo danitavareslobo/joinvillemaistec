@@ -1,0 +1,21 @@
+* {
+    background-color: dimgray;
+    margin: 15px;
+}
+
+p {
+    color: pink;
+}
+
+.destaque {
+    background-color: deeppink;
+}
+
+#bold {
+    font-weight: bold;
+}
+
+div p {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: deeppink;
+}
