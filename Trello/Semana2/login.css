@@ -1,0 +1,36 @@
+body {
+    background-color: hotpink;
+    color: white;
+}
+
+#login {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.email input, .senha input {
+    border-radius: 10px;
+    border: none;
+    width: 240px;
+    height: 40px;
+    margin-top: 15px;
+    background-color: rgb(252, 182, 211);
+}
+
+::placeholder {
+    color: deeppink;
+    padding-left: 10px;
+}
+
+.btn {
+    background-color: deeppink;
+    color: white;
+    cursor: pointer;
+    margin-top: 15px;
+    border-radius: 15px;
+    width: 120px;
+    height: 40px;
+}
