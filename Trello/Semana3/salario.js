@@ -22,8 +22,7 @@ function salarioHora(pHoras, pValorHora) {
 
 console.log(salarioHora(horasTrab, valorHora));
 
-
-
+console.log(nome + " vc receberá R$ " + 220*valorHora + " referente ao seu salário. Mais R$ " + (horasTrab-220)*(valorHora*1.5) + " referente às suas horas extras. Totalizando assim, um recebimento de R$ " + salarioHora(horasTrab, valorHora) + ".")
 
 
 
