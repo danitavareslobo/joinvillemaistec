@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     const treeOptions = document.querySelectorAll('.tree-option');
     let selectedTree = null;
+    let selectedTreeImageSrc = null;
 
     treeOptions.forEach(option => {
         option.addEventListener('click', function() {
@@ -9,6 +10,9 @@ document.addEventListener('DOMContentLoaded', function() {
             this.classList.add('selected');
             
             selectedTree = this.getAttribute('data-tree');
+
+            const imgElement = this.querySelector('.tree-img');
+            selectedTreeImageSrc = imgElement ? imgElement.src : null;
             
             document.body.className = selectedTree;
         });
@@ -38,6 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
             usuario: document.getElementById('usuario').value,
             senha: senha, 
             avatarArvore: selectedTree,
+            avatarImagemSrc: selectedTreeImageSrc,
             arvoresPlantadas: 0, 
             bio: '', 
             dataCadastro: new Date().toISOString()

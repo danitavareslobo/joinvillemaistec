@@ -1,170 +1,139 @@
-:root {
-  --primary-color: #4CAF50;
-  --secondary-color: #2E7D32;
-  --background-color: #E8F5E9;
-  --text-color: #212121;
-  --accent-color: #81C784;
-}
+@import url('../assets/styleTema.css');
 
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  transition: all 0.3s ease;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
 }
 
 .container {
-  max-width: 900px;
-  margin: 50px auto;
-  padding: 30px;
-  background-color: white;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
-  color: var(--primary-color);
-  text-align: center;
-  margin-bottom: 30px;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 30px;
 }
 
 form {
-  display: flex;
-  flex-direction: column;
+    display: flex;
+    flex-direction: column;
 }
 
 .form-group {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 .form-group:last-child {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
 }
 
 label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-  color: var(--secondary-color);
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--secondary-color);
 }
 
 input[type="text"],
 input[type="email"],
 input[type="password"] {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 16px;
-  box-sizing: border-box;
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
 }
 
 button {
-  background-color: var(--primary-color);
-  color: white;
-  border: none;
-  padding: 12px 30px;
-  font-size: 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-  justify-content: end;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
 }
 
 button:hover {
-  background-color: var(--secondary-color);
+    background-color: var(--secondary-color);
 }
 
 .tree-selection {
-  display: flex;
-  justify-content: space-between;
-  flex-direction: row;
-  align-items: stretch;
-  margin-top: 20px;
-  gap: 20px;
-  flex-wrap: nowrap;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: stretch;
+    margin-top: 20px;
+    gap: 20px;
+    flex-wrap: nowrap;
 }
 
 .tree-option {
-  text-align: center;
-  flex: 1;
-  cursor: pointer;
-  padding: 15px;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  border: 3px solid transparent;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+    text-align: center;
+    flex: 1;
+    cursor: pointer;
+    padding: 15px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .tree-option:hover {
-  transform: translateY(-5px);
+    transform: translateY(-5px);
 }
 
 .tree-option.selected {
-  border-color: var(--primary-color);
-  background-color: rgba(76, 175, 80, 0.1);
+    border-color: var(--primary-color);
+    background-color: rgba(76, 175, 80, 0.1);
 }
 
 .tree-img {
-  width: 120px;
-  height: 120px;
-  object-fit: contain;
-  margin-bottom: 10px;
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin-bottom: 10px;
 }
 
 .tree-name {
-  font-weight: 600;
-  margin-bottom: 5px;
+    font-weight: 600;
+    margin-bottom: 5px;
 }
 
 .tree-desc {
-  font-size: 14px;
-  color: #666;
-}
-
-body.pau-brasil {
-  --primary-color: #D32F2F;
-  --secondary-color: #B71C1C;
-  --background-color: #FFEBEE;
-  --text-color: #212121;
-  --accent-color: #EF9A9A;
-}
-
-body.castanheira {
-  --primary-color: #795548;
-  --secondary-color: #5D4037;
-  --background-color: #EFEBE9;
-  --text-color: #212121;
-  --accent-color: #A1887F;
-}
-
-body.peroba-rosa {
-  --primary-color: #E91E63;
-  --secondary-color: #C2185B;
-  --background-color: #FCE4EC;
-  --text-color: #212121;
-  --accent-color: #F48FB1;
+    font-size: 14px;
+    color: #666;
 }
 
 @media (max-width: 768px) {
-  .container {
-      margin: 20px 10px;
-      padding: 20px;
-  }
+    .container {
+        margin: 20px 10px;
+        padding: 20px;
+    }
 
-  .tree-selection {
-      flex-direction: column;
-      align-items: center;
-  }
+    .tree-selection {
+        flex-direction: column;
+        align-items: center;
+    }
 
-  .tree-option {
-      width: 80%;
-      margin-bottom: 20px;
-  }
+    .tree-option {
+        width: 80%;
+        margin-bottom: 20px;
+    }
 }
