@@ -45,7 +45,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 3000);
     });
     
-    const hamburger = document.getElementById('hamburger-menu');
     const menuList = document.getElementById('menu-list');
     
     hamburger.addEventListener('click', function() {

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuário - Reflorestamento</title>
+    <link rel="stylesheet" href="stylePerfil.css">
+</head>
+<body>
+    <nav id="main-nav">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="../assets/logo.png" alt="Logo Reflorestamento">
+                Reflorestamento
+            </a>
+                  
+            <ul id="menu-list">
+                <li><a href="cadastro-reflorestamento.html" id="nav-acoes">Cadastrar Ações</a></li>
+                <li><a href="perfil-usuario.html" id="nav-perfil" class="active">Meu Perfil</a></li>
+                <li><a href="relatorio-reflorestamento.html" id="nav-relatorio">Relatórios</a></li>
+                <li><a href="destaques-reflorestamento.html" id="nav-destaques">Destaques</a></li>
+            </ul>
+            
+            <div class="user-info" id="user-info">
+                <div class="user-avatar">
+                    <img id="nav-avatar" src="" alt="Avatar do usuário">
+                </div>
+                <span id="nav-user-name">Usuário</span>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="profile-header">
+            <div class="profile-avatar">
+                <img id="avatar-img" src="" alt="Avatar">
+            </div>
+            <div class="profile-info">
+                <h1 id="nome-usuario">Nome do Usuário</h1>
+                <p id="email-usuario">email@exemplo.com</p>
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="arvores-plantadas">0</div>
+                        <div class="stat-label">Árvores Plantadas</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="data-cadastro">01/01/2024</div>
+                        <div class="stat-label">Membro desde</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-bio">
+            <h2>Biografia</h2>
+            <p id="bio-atual">Nenhuma biografia definida.</p>
+            <div class="bio-form">
+                <textarea id="bio-input" placeholder="Escreva sua biografia aqui..."></textarea>
+                <div class="bio-button-container">
+                    <button id="salvar-bio">Salvar Biografia</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-header">
+                <h2 class="progress-title">Progresso de Reflorestamento</h2>
+                <span class="progress-info" id="progresso-info">0 de 1500+ árvores plantadas</span>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="barra-progresso" style="width: 0%"></div>
+            </div>
+            <div class="progress-milestones">
+                <div class="milestone" id="milestone-0">
+                    <span class="milestone-label">0</span>
+                </div>
+                <div class="milestone" id="milestone-100">
+                    <span class="milestone-label">100</span>
+                </div>
+                <div class="milestone" id="milestone-300">
+                    <span class="milestone-label">300</span>
+                </div>
+                <div class="milestone" id="milestone-700">
+                    <span class="milestone-label">700</span>
+                </div>
+                <div class="milestone" id="milestone-1500">
+                    <span class="milestone-label">1500+</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="perfil.js"></script>
+</body>
+</html>
