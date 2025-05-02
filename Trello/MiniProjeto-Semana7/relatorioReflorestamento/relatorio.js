@@ -1,181 +1,239 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const temaArmazenado = localStorage.getItem('temaReflorestamento');
-    if (temaArmazenado) {
-        document.body.className = temaArmazenado;
-    }
+function mostrarToast(mensagem, tipo = 'success', duracao = 3000) {
+    const toast = document.getElementById('toast');
+    const toastText = document.getElementById('toast-text');
+    const toastIcon = document.getElementById('toast-icon');
     
-    const dadosFicticios = [
-        {
-            idUsuario: 'maria_silva',
-            nomeUsuario: 'Maria Silva',
-            quantidade: 50,
-            especie: 'ipe',
-            especieFormatada: 'Ipê',
-            data: '2024-04-15',
-            local: 'Parque Municipal',
-            dataCadastro: '2024-04-16T10:30:00Z'
-        },
-        {
-            idUsuario: 'joao_santos',
-            nomeUsuario: 'João Santos',
-            quantidade: 30,
-            especie: 'angico',
-            especieFormatada: 'Angico',
-            data: '2024-04-10',
-            local: 'Margem do Rio Verde',
-            dataCadastro: '2024-04-11T08:45:00Z'
-        },
-        {
-            idUsuario: 'ana_oliveira',
-            nomeUsuario: 'Ana Oliveira',
-            quantidade: 100,
-            especie: 'aroeira',
-            especieFormatada: 'Aroeira',
-            data: '2024-04-05',
-            local: 'Área de Preservação',
-            dataCadastro: '2024-04-05T14:20:00Z'
-        },
-        {
-            idUsuario: 'carlos_ferreira',
-            nomeUsuario: 'Carlos Ferreira',
-            quantidade: 25,
-            especie: 'jequitiba',
-            especieFormatada: 'Jequitibá',
-            data: '2024-04-01',
-            local: 'Fazenda Esperança',
-            dataCadastro: '2024-04-01T16:15:00Z'
-        },
-        {
-            idUsuario: 'maria_silva',
-            nomeUsuario: 'Maria Silva',
-            quantidade: 40,
-            especie: 'peroba-campo',
-            especieFormatada: 'Peroba do Campo',
-            data: '2024-03-28',
-            local: 'Serra do Sol',
-            dataCadastro: '2024-03-29T09:10:00Z'
-        },
-        {
-            idUsuario: 'ana_oliveira',
-            nomeUsuario: 'Ana Oliveira',
-            quantidade: 60,
-            especie: 'ipe',
-            especieFormatada: 'Ipê',
-            data: '2024-03-25',
-            local: 'Escola Municipal',
-            dataCadastro: '2024-03-25T11:35:00Z'
-        },
-        {
-            idUsuario: 'pedro_santos',
-            nomeUsuario: 'Pedro Santos',
-            quantidade: 35,
-            especie: 'angico',
-            especieFormatada: 'Angico',
-            data: '2024-03-20',
-            local: 'Reserva Florestal',
-            dataCadastro: '2024-03-21T13:45:00Z'
-        },
-        {
-            idUsuario: 'lucia_costa',
-            nomeUsuario: 'Lucia Costa',
-            quantidade: 75,
-            especie: 'aroeira',
-            especieFormatada: 'Aroeira',
-            data: '2024-03-15',
-            local: 'Nascente do Córrego',
-            dataCadastro: '2024-03-16T10:25:00Z'
-        }
-    ];
+    toastText.textContent = mensagem;
+    
+    toast.className = `toast toast-${tipo}`;
+    
+    toastIcon.textContent = tipo === 'success' ? '✓' : '⚠';
+    
+    setTimeout(() => {
+        toast.classList.add('show');
+    }, 10);
+    
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, duracao);
+}
 
-    const acoesSalvas = JSON.parse(localStorage.getItem('acoesReflorestamento')) || [];
-    
-    let todasAcoes = [...dadosFicticios];
-    
-    if (acoesSalvas.length > 0) {
-        const acoesFormatadas = acoesSalvas.map(acao => {
-            let especieFormatada = 'Desconhecida';
-            
-            switch(acao.especie) {
-                case 'ipe': especieFormatada = 'Ipê'; break;
-                case 'angico': especieFormatada = 'Angico'; break;
-                case 'aroeira': especieFormatada = 'Aroeira'; break;
-                case 'jequitiba': especieFormatada = 'Jequitibá'; break;
-                case 'peroba-campo': especieFormatada = 'Peroba do Campo'; break;
-            }
-            
-            const usuarioSalvo = JSON.parse(localStorage.getItem('usuarioReflorestamento')) || {};
-            const nomeUsuario = usuarioSalvo.nome || 'Usuário';
-            
-            return {...acao, especieFormatada, nomeUsuario};
-        });
-        
-        todasAcoes = [...todasAcoes, ...acoesFormatadas];
-    }
-    
+function fecharToast() {
+    const toast = document.getElementById('toast');
+    toast.classList.remove('show');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
     const searchForm = document.getElementById('search-form');
     const resultsBody = document.getElementById('results-body');
     const resultsSummary = document.getElementById('results-summary');
     const noResults = document.getElementById('no-results');
-    
-    searchForm.addEventListener('submit', function(e) {
-        e.preventDefault();
+
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('acao_registrada') && urlParams.get('acao_registrada') === 'true') {
+        mostrarToast('Ação de reflorestamento registrada com sucesso!', 'success', 3000);
         
-        const usuarioBusca = document.getElementById('usuario').value.toLowerCase();
-        const especieBusca = document.getElementById('especie').value;
-        
-        const resultados = todasAcoes.filter(acao => {
-            const usuarioMatch = usuarioBusca === '' || 
-                                acao.nomeUsuario.toLowerCase().includes(usuarioBusca) || 
-                                (acao.idUsuario && acao.idUsuario.toLowerCase().includes(usuarioBusca));
-            
-            const especieMatch = especieBusca === '' || acao.especie === especieBusca;
-            
-            return usuarioMatch && especieMatch;
-        });
-        
-        mostrarResultados(resultados);
+        const newUrl = window.location.pathname;
+        window.history.replaceState({}, document.title, newUrl);
+    }
+
+    carregarDados().then(dados => {
+        inicializarRelatorios(dados);
+    }).catch(error => {
+        console.error("Erro ao carregar dados:", error);
+        mostrarToast('Erro ao carregar dados. Verifique o console para mais detalhes.', 'error', 5000);
+        inicializarRelatorios({ usuarios: [], acoes: [] });
     });
-    
-    function mostrarResultados(resultados) {
-        resultsBody.innerHTML = '';
+
+    async function carregarDados() {
+        try {
+            console.log('Tentando carregar dados do JSON...');
+            const response = await fetch('../data/usuarios.json');
+            if (!response.ok) {
+                console.error('Resposta não ok:', response.status);
+                throw new Error('Erro ao carregar dados');
+            }
+            const dados = await response.json();
+            console.log('Dados carregados com sucesso:', dados);
+            return dados;
+        } catch (error) {
+            console.error('Erro ao carregar dados:', error);
+            try {
+                console.log('Tentando caminho alternativo...');
+                const altResponse = await fetch('./data/usuarios.json');
+                if (altResponse.ok) {
+                    const dados = await altResponse.json();
+                    console.log('Dados carregados com sucesso (caminho alternativo):', dados);
+                    return dados;
+                }
+            } catch (altError) {
+                console.error('Erro no caminho alternativo:', altError);
+            }
+            return { usuarios: [], acoes: [] };
+        }
+    }
+
+    function inicializarRelatorios(dados) {
+        console.log('Inicializando relatórios com dados:', dados);
+
+        const acoesSalvasJSON = localStorage.getItem('acoesReflorestamento');
+        console.log('Ações salvas no localStorage:', acoesSalvasJSON);
         
-        if (resultados.length === 0) {
-            noResults.style.display = 'block';
-            resultsSummary.textContent = 'Nenhum resultado encontrado para os filtros selecionados.';
+        const acoesSalvas = acoesSalvasJSON ? JSON.parse(acoesSalvasJSON) : [];
+        
+        let todasAcoes = [...(dados.acoes || [])];
+        console.log('Ações do JSON:', todasAcoes);
+        
+        if (acoesSalvas.length > 0) {
+            console.log('Processando ações do localStorage...');
+            const acoesFormatadas = acoesSalvas.map(acao => {
+                let especieFormatada = 'Desconhecida';
+                
+                switch(acao.especie) {
+                    case 'ipe': especieFormatada = 'Ipê'; break;
+                    case 'angico': especieFormatada = 'Angico'; break;
+                    case 'aroeira': especieFormatada = 'Aroeira'; break;
+                    case 'jequitiba': especieFormatada = 'Jequitibá'; break;
+                    case 'peroba-campo': especieFormatada = 'Peroba do Campo'; break;
+                }
+
+                let nomeUsuario = 'Usuário';
+                if (acao.idUsuario && dados.usuarios) {
+                    const usuarioEncontrado = dados.usuarios.find(u => u.id === acao.idUsuario);
+                    if (usuarioEncontrado) {
+                        nomeUsuario = usuarioEncontrado.nome;
+                    } else {
+                        const usuarioSalvo = JSON.parse(localStorage.getItem('usuarioReflorestamento')) || {};
+                        nomeUsuario = usuarioSalvo.nome || 'Usuário';
+                    }
+                }
+                
+                return {...acao, especieFormatada, nomeUsuario};
+            });
+    
+            todasAcoes = [...todasAcoes, ...acoesFormatadas];
+            console.log('Total de ações após mesclar com localStorage:', todasAcoes.length);
+        } else {
+            console.log('Não há ações no localStorage');
+            todasAcoes = todasAcoes.map(acao => {
+                if (acao.idUsuario && dados.usuarios) {
+                    const usuarioEncontrado = dados.usuarios.find(u => u.id === acao.idUsuario);
+                    if (usuarioEncontrado) {
+                        return {...acao, nomeUsuario: usuarioEncontrado.nome};
+                    }
+                }
+                return acao;
+            });
+        }
+        
+        const especieSelect = document.getElementById('especie');
+        if (especieSelect) {
+            while (especieSelect.options.length > 1) {
+                especieSelect.remove(1);
+            }
+            
+            const especies = [...new Set(todasAcoes.map(acao => acao.especie).filter(Boolean))];
+            especies.sort();
+            
+            especies.forEach(especie => {
+                let especieFormatada = 'Desconhecida';
+                switch(especie) {
+                    case 'ipe': especieFormatada = 'Ipê'; break;
+                    case 'angico': especieFormatada = 'Angico'; break;
+                    case 'aroeira': especieFormatada = 'Aroeira'; break;
+                    case 'jequitiba': especieFormatada = 'Jequitibá'; break;
+                    case 'peroba-campo': especieFormatada = 'Peroba do Campo'; break;
+                }
+                
+                const option = document.createElement('option');
+                option.value = especie;
+                option.textContent = especieFormatada;
+                especieSelect.appendChild(option);
+            });
+        }
+        
+        mostrarResultados(todasAcoes, dados);
+        
+        if (searchForm) {
+            searchForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+        
+                const usuarioBusca = document.getElementById('usuario').value.toLowerCase();
+                const especieBusca = document.getElementById('especie').value;
+        
+                const resultados = todasAcoes.filter(acao => {
+                    const usuarioMatch = usuarioBusca === '' || 
+                                      (acao.nomeUsuario && acao.nomeUsuario.toLowerCase().includes(usuarioBusca)) || 
+                                      (acao.idUsuario && acao.idUsuario.toLowerCase().includes(usuarioBusca));
+                    
+                    const especieMatch = especieBusca === '' || acao.especie === especieBusca;
+                    
+                    return usuarioMatch && especieMatch;
+                });
+        
+                mostrarResultados(resultados, dados);
+            });
+        } else {
+            console.error('Elemento do formulário de busca não encontrado!');
+        }
+    }
+    
+    function mostrarResultados(resultados, dadosUsuarios) {
+        console.log('Mostrando resultados:', resultados.length, 'registros');
+        
+        if (!resultsBody) {
+            console.error('Elemento resultsBody não encontrado!');
             return;
         }
         
-        noResults.style.display = 'none';
+        resultsBody.innerHTML = '';
         
+        if (resultados.length === 0) {
+            if (noResults) {
+                noResults.style.display = 'block';
+            }
+            if (resultsSummary) {
+                resultsSummary.textContent = 'Nenhum resultado encontrado para os filtros selecionados.';
+            }
+            return;
+        }
+    
+        if (noResults) {
+            noResults.style.display = 'none';
+        }
+    
         resultados.forEach(acao => {
             const row = document.createElement('tr');
-            
+    
             const dataPlantio = new Date(acao.data);
             const dataFormatada = dataPlantio.toLocaleDateString('pt-BR');
             
+            let nomeUsuarioMostrar = 'Usuário';
+            
+            if (acao.nomeUsuario && acao.nomeUsuario !== 'Usuário') {
+                nomeUsuarioMostrar = acao.nomeUsuario;
+            } 
+            else if (acao.idUsuario && dadosUsuarios && dadosUsuarios.usuarios) {
+                const usuarioEncontrado = dadosUsuarios.usuarios.find(u => u.id === acao.idUsuario);
+                if (usuarioEncontrado) {
+                    nomeUsuarioMostrar = usuarioEncontrado.nome;
+                }
+            }
+            
             row.innerHTML = `
-                <td>${acao.nomeUsuario || 'Usuário'}</td>
-                <td>${acao.especieFormatada}</td>
+                <td>${nomeUsuarioMostrar}</td>
+                <td>${acao.especieFormatada || 'Desconhecida'}</td>
                 <td>${acao.quantidade}</td>
-                <td>${acao.local}</td>
+                <td>${acao.local || 'Não informado'}</td>
                 <td>${dataFormatada}</td>
             `;
             
             resultsBody.appendChild(row);
         });
-        
-        const totalArvores = resultados.reduce((total, acao) => total + acao.quantidade, 0);
-        resultsSummary.textContent = `Encontrados ${resultados.length} registros, totalizando ${totalArvores} árvores plantadas.`;
-    }
-     
-    const navUserName = document.getElementById('nav-user-name');
-    const navAvatar = document.getElementById('nav-avatar');
     
-    const usuarioSalvo = localStorage.getItem('usuarioReflorestamento');
-    
-    if (usuarioSalvo) {
-        const usuario = JSON.parse(usuarioSalvo);
-        navUserName.textContent = usuario.nome.split(' ')[0]; 
-        navAvatar.alt = `Avatar de ${usuario.nome}`;
+        if (resultsSummary) {
+            const totalArvores = resultados.reduce((total, acao) => total + (acao.quantidade || 0), 0);
+            resultsSummary.textContent = `Encontrados ${resultados.length} registros, totalizando ${totalArvores} árvores plantadas.`;
+        }
     }
 });

@@ -18,96 +18,6 @@ body {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-nav {
-    background-color: var(--primary-color);
-    padding: 15px 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-nav .nav-container {
-    max-width: 1000px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-}
-
-.nav-logo {
-    display: flex;
-    align-items: center;
-    color: white;
-    font-size: 20px;
-    font-weight: 600;
-    text-decoration: none;
-}
-
-.nav-logo img {
-    width: 36px;
-    height: 36px;
-    margin-right: 10px;
-}
-
-nav ul {
-    display: flex;
-    gap: 20px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    padding: 8px 16px;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-}
-
-nav ul li a:hover, 
-nav ul li a.active {
-    background-color: var(--secondary-color);
-}
-
-.user-info {
-    display: flex;
-    align-items: center;
-    color: white;
-    margin-left: 20px;
-}
-
-.user-avatar {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background-color: white;
-    margin-right: 10px;
-    overflow: hidden;
-}
-
-.user-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.hamburger {
-    display: none;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 30px;
-    height: 21px;
-    cursor: pointer;
-}
-
-.hamburger span {
-    height: 3px;
-    width: 100%;
-    background-color: white;
-    border-radius: 3px;
-}
-
 .profile-header {
     display: flex;
     align-items: center;
@@ -221,6 +131,7 @@ nav ul li a.active {
     border-radius: 6px;
     overflow: hidden;
     margin-bottom: 10px;
+    position: relative;
 }
 
 .progress-bar {
@@ -233,7 +144,9 @@ nav ul li a.active {
 .progress-milestones {
     display: flex;
     justify-content: space-between;
-    margin-top: 5px;
+    margin-top: 15px;
+    position: relative;
+    padding-top: 15px;
 }
 
 .milestone {
@@ -241,7 +154,6 @@ nav ul li a.active {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 20px;
 }
 
 .milestone::before {
@@ -250,6 +162,8 @@ nav ul li a.active {
     height: 12px;
     background-color: #e0e0e0;
     border-radius: 50%;
+    position: absolute;
+    top: -20px;
 }
 
 .milestone.reached::before {
@@ -257,8 +171,6 @@ nav ul li a.active {
 }
 
 .milestone-label {
-    position: absolute;
-    top: 15px;
     font-size: 12px;
     color: #666;
     white-space: nowrap;
@@ -293,38 +205,77 @@ button:hover {
     .profile-stats {
         justify-content: center;
     }
+}
 
-    nav ul {
-        flex-direction: column;
-        align-items: center;
-    }
+/* Toast notification */
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 15px 25px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: opacity 0.3s, transform 0.3s;
+    max-width: 350px;
+    display: flex;
+    align-items: center;
+}
 
-    .hamburger {
-        display: flex;
-    }
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
 
-    nav ul {
-        flex-basis: 100%;
-        flex-direction: column;
-        display: none;
-        margin-top: 20px;
-    }
+.toast-success {
+    background-color: #81C784;
+}
 
-    nav ul.active {
-        display: flex;
-    }
+.toast-error {
+    background-color: #EF9A9A;
+}
 
-    nav ul li {
-        width: 100%;
-    }
+.toast-icon {
+    margin-right: 10px;
+    font-size: 20px;
+}
 
-    nav ul li a {
-        display: block;
-        padding: 10px 0;
-        text-align: center;
-    }
+.toast-text {
+    flex-grow: 1;
+}
 
-    .user-info {
-        margin-left: auto;
-    }
+.toast-close {
+    cursor: pointer;
+    margin-left: 10px;
+    font-weight: bold;
+}
+
+.progress-bar-container {
+    height: 12px;
+    background-color: #e0e0e0;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    position: relative;
+    width: 100%; 
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: var(--primary-color);
+    border-radius: 6px;
+    transition: width 0.5s ease;
+    
+}
+
+.progress-milestones {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    position: relative;
+    width: 100%; 
 }

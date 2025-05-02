@@ -1,4 +1,37 @@
+function mostrarToast(mensagem, tipo = 'success', duracao = 3000) {
+    const toast = document.getElementById('toast');
+    const toastText = document.getElementById('toast-text');
+    const toastIcon = document.getElementById('toast-icon');
+    
+    toastText.textContent = mensagem;
+
+    toast.className = `toast toast-${tipo}`;
+
+    toastIcon.textContent = tipo === 'success' ? '✓' : '⚠';
+
+    setTimeout(() => {
+        toast.classList.add('show');
+    }, 10);
+
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, duracao);
+}
+
+function fecharToast() {
+    const toast = document.getElementById('toast');
+    toast.classList.remove('show');
+}
+
 document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('logout') && urlParams.get('logout') === 'true') {
+        mostrarToast('Você foi desconectado com sucesso.', 'success', 3000);
+        
+        const newUrl = window.location.pathname;
+        window.history.replaceState({}, document.title, newUrl);
+    }
+
     const treeOptions = document.querySelectorAll('.tree-option');
     let selectedTree = null;
     let selectedTreeImageSrc = null;
@@ -24,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         
         if (!selectedTree) {
-            alert('Por favor, selecione uma árvore para seu avatar.');
+            mostrarToast('Por favor, selecione uma árvore para seu avatar.', 'error', 3000);
             return;
         }
         
@@ -32,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const confirmarSenha = document.getElementById('confirmarSenha').value;
         
         if (senha !== confirmarSenha) {
-            alert('As senhas não coincidem. Por favor, verifique.');
+            mostrarToast('As senhas não coincidem. Por favor, verifique.', 'error', 3000);
             return;
         }
         
@@ -48,12 +81,12 @@ document.addEventListener('DOMContentLoaded', function() {
             dataCadastro: new Date().toISOString()
         };
         
-        
         localStorage.setItem('usuarioReflorestamento', JSON.stringify(usuario));
         localStorage.setItem('temaReflorestamento', selectedTree);
         
-        alert('Cadastro realizado com sucesso!');
+        mostrarToast('Cadastro realizado com sucesso!', 'success', 3000);
         console.log('Objeto de usuário criado:', usuario);
         
+        window.location.href = '../acoesReflorestamento/acoesReflorestamento.html?cadastro=true';
     });
 });

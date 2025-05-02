@@ -1,7 +1,42 @@
+function mostrarToast(mensagem, tipo = 'success', duracao = 3000) {
+    const toast = document.getElementById('toast');
+    const toastText = document.getElementById('toast-text');
+    const toastIcon = document.getElementById('toast-icon');
+    
+    toastText.textContent = mensagem;
+    
+    toast.className = `toast toast-${tipo}`;
+    
+    toastIcon.textContent = tipo === 'success' ? '✓' : '⚠';
+    
+    setTimeout(() => {
+        toast.classList.add('show');
+    }, 10);
+    
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, duracao);
+}
+
+function fecharToast() {
+    const toast = document.getElementById('toast');
+    toast.classList.remove('show');
+}
+
 document.addEventListener('DOMContentLoaded', function() {
-    const temaArmazenado = localStorage.getItem('temaReflorestamento');
-    if (temaArmazenado) {
-        document.body.className = temaArmazenado;
+    const urlParams = new URLSearchParams(window.location.search);
+    const cadastroRealizado = urlParams.get('cadastro');
+    
+    if (cadastroRealizado === 'true') {
+        const usuarioJSON = localStorage.getItem('usuarioReflorestamento');
+        if (usuarioJSON) {
+            const usuario = JSON.parse(usuarioJSON);
+            mostrarToast(`Bem-vindo(a), ${usuario.nome.split(' ')[0]}! Seu cadastro foi realizado com sucesso.`, 'success', 4000);
+        } else {
+            mostrarToast('Cadastro realizado com sucesso!', 'success', 4000);
+        }
+
+        window.history.replaceState({}, document.title, window.location.pathname);
     }
     
     const acaoForm = document.getElementById('acaoForm');
@@ -9,18 +44,18 @@ document.addEventListener('DOMContentLoaded', function() {
     
     acaoForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        
+
         const usuarioJSON = localStorage.getItem('usuarioReflorestamento');
         let idUsuario = null;
         
         if (usuarioJSON) {
             const usuario = JSON.parse(usuarioJSON);
             idUsuario = usuario.usuario;
-            
+
             usuario.arvoresPlantadas += parseInt(document.getElementById('quantidade').value);
             localStorage.setItem('usuarioReflorestamento', JSON.stringify(usuario));
         }
-        
+
         const acao = {
             idUsuario: idUsuario, 
             quantidade: parseInt(document.getElementById('quantidade').value),
@@ -29,48 +64,12 @@ document.addEventListener('DOMContentLoaded', function() {
             local: document.getElementById('local').value,
             dataCadastro: new Date().toISOString()
         };
-        
+
         let acoes = JSON.parse(localStorage.getItem('acoesReflorestamento')) || [];
         acoes.push(acao);
-        
+
         localStorage.setItem('acoesReflorestamento', JSON.stringify(acoes));
-        
-        confirmacao.style.display = 'block';
-        console.log('Ação de reflorestamento registrada:', acao);
-        
-        acaoForm.reset();
-        
-        setTimeout(() => {
-            confirmacao.style.display = 'none';
-        }, 3000);
+
+        window.location.href = '../relatorioReflorestamento/relatorio.html?acao_registrada=true';
     });
-    
-    const menuList = document.getElementById('menu-list');
-    
-    hamburger.addEventListener('click', function() {
-        menuList.classList.toggle('active');
-    });
-    
-    const navUserName = document.getElementById('nav-user-name');
-    const navAvatar = document.getElementById('nav-avatar');
-    
-    const usuarioJSON = localStorage.getItem('usuarioReflorestamento');
-    if (usuarioJSON) {
-        const usuario = JSON.parse(usuarioJSON);
-        navUserName.textContent = usuario.nome.split(' ')[0]; 
-        
-        if (usuario.avatarImagemSrc) {
-            navAvatar.src = usuario.avatarImagemSrc;
-        } else {
-            if (usuario.avatarArvore === 'pau-brasil') {
-                navAvatar.src = 'pau-brasil-avatar.svg';
-            } else if (usuario.avatarArvore === 'castanheira') {
-                navAvatar.src = 'castanheira-avatar.svg';
-            } else if (usuario.avatarArvore === 'peroba-rosa') {
-                navAvatar.src = 'peroba-rosa-avatar.svg';
-            }
-        }
-        
-        navAvatar.alt = `Avatar de ${usuario.nome}`;
-    }
 });
