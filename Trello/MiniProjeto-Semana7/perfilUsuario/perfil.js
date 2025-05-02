@@ -14,19 +14,16 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     
     const MAX_ARVORES = 1500;
-    const MARCOS = [0, 100, 300, 700, 1500]; 
+    const MARCOS = [0, 375, 750, 1500]; 
 
-    // Inicializar usuário
     let usuario = inicializarUsuario();
     console.log("Usuário inicializado:", usuario);
     
-    // Adicionar o JSON como complemento de dados
     carregarDados().then(dados => {
         if (dados && dados.usuarios && usuario.id) {
             const usuarioComplementar = dados.usuarios.find(u => u.id === usuario.id);
             if (usuarioComplementar) {
                 console.log("Dados complementares encontrados:", usuarioComplementar);
-                // Mesclar dados (mantendo prioridade para localStorage)
                 Object.keys(usuarioComplementar).forEach(key => {
                     if (!usuario[key] && usuarioComplementar[key]) {
                         usuario[key] = usuarioComplementar[key];
@@ -55,7 +52,6 @@ document.addEventListener('DOMContentLoaded', function() {
             return dados;
         } catch (error) {
             console.error('Erro ao carregar dados:', error);
-            // Tentar caminho alternativo
             try {
                 console.log("Tentando caminho alternativo...");
                 const altResponse = await fetch('./data/usuarios.json');
@@ -136,7 +132,9 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function atualizarBarraProgresso(arvoresPlantadas) {
         console.log("Atualizando barra de progresso:", arvoresPlantadas);
-        const porcentagem = Math.min((arvoresPlantadas / MAX_ARVORES) * 100, 100);
+
+        const v1 = arvoresPlantadas /  (MAX_ARVORES / 100);
+        const porcentagem = Math.min(v1, MAX_ARVORES);
         console.log("Porcentagem calculada:", porcentagem + "%");
 
         const barraProgresso = document.getElementById('barra-progresso');
