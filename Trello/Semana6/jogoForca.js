@@ -13,6 +13,7 @@ let letrasCorretas = [];
 let letrasErradas = [];
 let letrasJaTentadas = [];
 let palavraAtual = [];
+let jogoTerminado = false;
 
 function sortearPalavra() {
     const indiceAleatorio = Math.floor(Math.random() * palavras.length);
@@ -56,6 +57,76 @@ function validarLetra(letra) {
     return letra;
 }
 
+function verificarVitoria() {
+    const palavraCompleta = !palavraAtual.includes('_');
+    
+    if (palavraCompleta) {
+        jogoTerminado = true;
+        mostrarVitoria();
+        return true;
+    }
+    
+    return false;
+}
+
+function mostrarVitoria() {
+    const mensagem = `🎉 PARABÉNS! 🎉\nVocê descobriu a palavra "${palavraEscolhida}"!\nTentativas: ${letrasJaTentadas.length}`;
+    
+    console.log('=== VITÓRIA! ===');
+    console.log(mensagem);
+    console.log('================');
+    
+    mostrarMensagem(mensagem, 'vitoria');
+    
+    desabilitarControles();
+    
+    mostrarBotaoJogarNovamente();
+}
+
+function desabilitarControles() {
+    const campoLetra = document.getElementById('letterInput');
+    const botaoTentar = document.getElementById('guessButton');
+    
+    if (campoLetra) {
+        campoLetra.disabled = true;
+    }
+    
+    if (botaoTentar) {
+        botaoTentar.disabled = true;
+    }
+}
+
+function habilitarControles() {
+    const campoLetra = document.getElementById('letterInput');
+    const botaoTentar = document.getElementById('guessButton');
+    
+    if (campoLetra) {
+        campoLetra.disabled = false;
+        campoLetra.focus(); 
+    }
+    
+    if (botaoTentar) {
+        botaoTentar.disabled = false;
+    }
+}
+
+function mostrarBotaoJogarNovamente() {
+    const botaoReiniciar = document.getElementById('resetButton');
+    
+    if (botaoReiniciar) {
+        botaoReiniciar.style.display = 'inline-block';
+    } else {
+        console.log('💡 Para jogar novamente, digite: reiniciarJogo()');
+    }
+}
+
+function esconderBotaoJogarNovamente() {
+    const botaoReiniciar = document.getElementById('resetButton');
+    
+    if (botaoReiniciar) {
+        botaoReiniciar.style.display = 'none';
+    }
+}
 function processarLetra(letra) {
     const letraValida = validarLetra(letra);
     
@@ -119,12 +190,35 @@ function mostrarMensagem(texto, tipo) {
     const elementoMensagem = document.getElementById('message');
     if (elementoMensagem) {
         elementoMensagem.textContent = texto;
-        elementoMensagem.className = `message ${tipo}`;
         
-        setTimeout(() => {
-            elementoMensagem.textContent = '';
-            elementoMensagem.className = 'message';
-        }, 3000);
+        let classeCSS = 'message';
+        switch(tipo) {
+            case 'vitoria':
+                classeCSS += ' win';
+                break;
+            case 'sucesso':
+                classeCSS += ' success';
+                break;
+            case 'erro':
+                classeCSS += ' error';
+                break;
+            case 'aviso':
+                classeCSS += ' warning';
+                break;
+            default:
+                classeCSS += ` ${tipo}`;
+        }
+        
+        elementoMensagem.className = classeCSS;
+        
+        if (tipo !== 'vitoria') {
+            setTimeout(() => {
+                if (elementoMensagem.textContent === texto) {
+                    elementoMensagem.textContent = '';
+                    elementoMensagem.className = 'message';
+                }
+            }, 3000);
+        }
     }
 }
 
@@ -134,12 +228,23 @@ function inicializarJogo() {
     letrasCorretas = [];
     letrasErradas = [];
     letrasJaTentadas = [];
+    jogoTerminado = false;
     
     sortearPalavra();
     
     prepararExibicaoPalavra();
     
     atualizarInterface();
+    
+    habilitarControles();
+    
+    esconderBotaoJogarNovamente();
+    
+    const elementoMensagem = document.getElementById('message');
+    if (elementoMensagem) {
+        elementoMensagem.textContent = 'Digite uma letra para começar!';
+        elementoMensagem.className = 'message';
+    }
     
     console.log('=== JOGO INICIALIZADO ===');
     console.log('Digite uma letra para começar!');
@@ -176,6 +281,14 @@ function configurarEventos() {
         
         campoLetra.addEventListener('input', function(evento) {
             evento.target.value = evento.target.value.toUpperCase().replace(/[^A-Z]/g, '');
+        });
+    }
+    
+    const botaoReiniciar = document.getElementById('resetButton');
+    if (botaoReiniciar) {
+        botaoReiniciar.addEventListener('click', function() {
+            console.log('=== REINICIANDO JOGO ===');
+            inicializarJogo();
         });
     }
 }
