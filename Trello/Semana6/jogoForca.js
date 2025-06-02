@@ -62,18 +62,22 @@ function verificarVitoria() {
     
     if (palavraCompleta) {
         jogoTerminado = true;
-        mostrarVitoria();
+        mostrarVitoriaComNome(); 
         return true;
     }
     
     return false;
 }
 
-function mostrarVitoria() {
-    const mensagem = `🎉 PARABÉNS! 🎉\nVocê descobriu a palavra "${palavraEscolhida}"!\nTentativas: ${letrasJaTentadas.length}`;
+function mostrarVitoriaComNome() {
+    const nomeJogador = getPlayerNameFromStorage();
+    
+    const mensagem = `🎉 PARABÉNS, ${nomeJogador.toUpperCase()}! 🎉\nVocê descobriu a palavra "${palavraEscolhida}"!\nTentativas utilizadas: ${letrasJaTentadas.length}`;
     
     console.log('=== VITÓRIA! ===');
-    console.log(mensagem);
+    console.log(`Jogador: ${nomeJogador}`);
+    console.log(`Palavra: ${palavraEscolhida}`);
+    console.log(`Tentativas: ${letrasJaTentadas.length}`);
     console.log('================');
     
     mostrarMensagem(mensagem, 'vitoria');
@@ -81,6 +85,33 @@ function mostrarVitoria() {
     desabilitarControles();
     
     mostrarBotaoJogarNovamente();
+    
+    salvarEstatisticaVitoria();
+}
+
+function salvarEstatisticaVitoria() {
+    try {
+        const nomeJogador = getPlayerNameFromStorage();
+        const estatisticas = JSON.parse(localStorage.getItem('hangman_stats') || '{}');
+        
+        if (!estatisticas[nomeJogador]) {
+            estatisticas[nomeJogador] = {
+                vitorias: 0,
+                jogos: 0,
+                ultimaVitoria: null
+            };
+        }
+        
+        estatisticas[nomeJogador].vitorias++;
+        estatisticas[nomeJogador].jogos++;
+        estatisticas[nomeJogador].ultimaVitoria = new Date().toISOString();
+        
+        localStorage.setItem('hangman_stats', JSON.stringify(estatisticas));
+        
+        console.log(`Estatísticas atualizadas para ${nomeJogador}:`, estatisticas[nomeJogador]);
+    } catch (error) {
+        console.warn('Erro ao salvar estatísticas:', error);
+    }
 }
 
 function desabilitarControles() {
@@ -102,7 +133,7 @@ function habilitarControles() {
     
     if (campoLetra) {
         campoLetra.disabled = false;
-        campoLetra.focus(); 
+        campoLetra.focus();
     }
     
     if (botaoTentar) {
@@ -127,7 +158,13 @@ function esconderBotaoJogarNovamente() {
         botaoReiniciar.style.display = 'none';
     }
 }
+
 function processarLetra(letra) {
+    if (jogoTerminado) {
+        mostrarMensagem('O jogo já terminou! Clique em "Jogar Novamente" para reiniciar.', 'aviso');
+        return false;
+    }
+    
     const letraValida = validarLetra(letra);
     
     if (!letraValida) {
@@ -148,6 +185,10 @@ function processarLetra(letra) {
         mostrarMensagem(`Boa! A letra "${letraValida}" está na palavra!`, 'sucesso');
         console.log(`Letra correta: ${letraValida}`);
         
+        if (verificarVitoria()) {
+            return true; 
+        }
+        
     } else {
         letrasErradas.push(letraValida);
         mostrarMensagem(`A letra "${letraValida}" não está na palavra.`, 'erro');
@@ -157,8 +198,9 @@ function processarLetra(letra) {
     atualizarInterface();
     
     const campoLetra = document.getElementById('letterInput');
-    if (campoLetra) {
+    if (campoLetra && !jogoTerminado) {
         campoLetra.value = '';
+        campoLetra.focus();
     }
     
     return true;
@@ -178,6 +220,7 @@ function atualizarInterface() {
     }
     
     console.log('--- Status do Jogo ---');
+    console.log(`Jogador: ${getPlayerNameFromStorage()}`);
     console.log(`Palavra atual: ${palavraAtual.join(' ')}`);
     console.log(`Letras corretas: ${letrasCorretas.join(', ')}`);
     console.log(`Letras erradas: ${letrasErradas.join(', ')}`);
@@ -223,7 +266,14 @@ function mostrarMensagem(texto, tipo) {
 }
 
 function inicializarJogo() {
-    console.log('=== INICIANDO JOGO DA FORCA ===');
+    if (!isPlayerLoggedIn()) {
+        console.warn('Nenhum jogador logado! Redirecionando para login...');
+        return;
+    }
+    
+    const nomeJogador = getPlayerNameFromStorage();
+    console.log(`=== INICIANDO JOGO DA FORCA ===`);
+    console.log(`Jogador: ${nomeJogador}`);
     
     letrasCorretas = [];
     letrasErradas = [];
@@ -242,12 +292,12 @@ function inicializarJogo() {
     
     const elementoMensagem = document.getElementById('message');
     if (elementoMensagem) {
-        elementoMensagem.textContent = 'Digite uma letra para começar!';
+        elementoMensagem.textContent = `${nomeJogador}, digite uma letra para começar!`;
         elementoMensagem.className = 'message';
     }
     
     console.log('=== JOGO INICIALIZADO ===');
-    console.log('Digite uma letra para começar!');
+    console.log(`${nomeJogador}, digite uma letra para começar!`);
 }
 
 function configurarEventos() {
@@ -294,13 +344,12 @@ function configurarEventos() {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Página carregada! Configurando jogo da forca...');
+    console.log('Jogo da Forca carregado! Aguardando login...');
     
-    configurarEventos();
-    
-    inicializarJogo();
-    
-    console.log('Jogo configurado! Use o campo de entrada para tentar letras.');
+    const gameScreen = document.getElementById('gameScreen');
+    if (gameScreen && gameScreen.style.display !== 'none') {
+        configurarEventos();
+    }
 });
 
 function tentarLetra(letra) {
@@ -312,21 +361,32 @@ function reiniciarJogo() {
     inicializarJogo();
 }
 
-function mostrarInformacoesPalavras() {
-    console.log('=== INFORMAÇÕES DAS PALAVRAS ===');
-    console.log(`Total de palavras: ${palavras.length}`);
+function obterEstatisticasJogador() {
+    try {
+        const nomeJogador = getPlayerNameFromStorage();
+        const estatisticas = JSON.parse(localStorage.getItem('hangman_stats') || '{}');
+        
+        return estatisticas[nomeJogador] || {
+            vitorias: 0,
+            jogos: 0,
+            ultimaVitoria: null
+        };
+    } catch (error) {
+        console.warn('Erro ao obter estatísticas:', error);
+        return { vitorias: 0, jogos: 0, ultimaVitoria: null };
+    }
+}
+
+function mostrarEstatisticas() {
+    const nomeJogador = getPlayerNameFromStorage();
+    const stats = obterEstatisticasJogador();
     
-    const palavrasPorTamanho = {};
-    palavras.forEach(palavra => {
-        const tamanho = palavra.length;
-        if (!palavrasPorTamanho[tamanho]) {
-            palavrasPorTamanho[tamanho] = [];
-        }
-        palavrasPorTamanho[tamanho].push(palavra);
-    });
-    
-    console.log('Distribuição por tamanho:');
-    Object.keys(palavrasPorTamanho).sort().forEach(tamanho => {
-        console.log(`${tamanho} letras: ${palavrasPorTamanho[tamanho].length} palavras`);
-    });
+    console.log(`=== ESTATÍSTICAS DE ${nomeJogador.toUpperCase()} ===`);
+    console.log(`Vitórias: ${stats.vitorias}`);
+    console.log(`Jogos: ${stats.jogos}`);
+    console.log(`Taxa de vitória: ${stats.jogos > 0 ? ((stats.vitorias / stats.jogos) * 100).toFixed(1) : 0}%`);
+    if (stats.ultimaVitoria) {
+        console.log(`Última vitória: ${new Date(stats.ultimaVitoria).toLocaleString()}`);
+    }
+    console.log('=====================================');
 }
