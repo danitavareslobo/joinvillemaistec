@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Login</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h1>Acesso ao Sistema</h1>
+            <p>Digite suas credenciais para continuar</p>
+        </div>
+        
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="usuario">Código de Usuário</label>
+                <input type="text" id="usuario" name="usuario" required placeholder="Digite seu código de acesso">
+            </div>
+            
+            <div class="form-group">
+                <label for="setor">Setor</label>
+                <select id="setor" name="setor" required>
+                    <option value="">Selecione seu setor</option>
+                    <option value="comercial">Comercial</option>
+                    <option value="rh">RH</option>
+                    <option value="ti">TI</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="senha">Senha</label>
+                <div class="password-container">
+                    <input type="password" id="senha" name="senha" required placeholder="Digite sua senha">
+                    <button type="button" class="toggle-password" onclick="togglePassword()">
+                        👁️
+                    </button>
+                </div>
+            </div>
+            
+            <button type="submit" class="login-button">Entrar</button>
+            
+            <div class="forgot-password">
+                <a href="#" onclick="alert('Funcionalidade não implementada')">Esqueceu sua senha?</a>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>
