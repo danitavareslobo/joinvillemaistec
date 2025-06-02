@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jogo da Forca</title>
+    <link rel="stylesheet" href="jogoForca.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🎯 Jogo da Forca</h1>
+        
+        <div class="hangman-container">
+            <svg width="200" height="250" class="hangman-svg">
+                <line x1="10" y1="230" x2="150" y2="230" stroke="#8B4513" stroke-width="4"/>
+                <line x1="30" y1="230" x2="30" y2="20" stroke="#8B4513" stroke-width="4"/>
+                <line x1="30" y1="20" x2="120" y2="20" stroke="#8B4513" stroke-width="4"/>
+                <line x1="120" y1="20" x2="120" y2="50" stroke="#8B4513" stroke-width="2"/>
+                
+                <circle cx="120" cy="65" r="15" stroke="#333" stroke-width="2" fill="none" class="hangman-part" id="head"/>
+                <line x1="120" y1="80" x2="120" y2="150" stroke="#333" stroke-width="2" class="hangman-part" id="body"/>
+                <line x1="120" y1="100" x2="90" y2="130" stroke="#333" stroke-width="2" class="hangman-part" id="leftArm"/>
+                <line x1="120" y1="100" x2="150" y2="130" stroke="#333" stroke-width="2" class="hangman-part" id="rightArm"/>
+                <line x1="120" y1="150" x2="90" y2="180" stroke="#333" stroke-width="2" class="hangman-part" id="leftLeg"/>
+                <line x1="120" y1="150" x2="150" y2="180" stroke="#333" stroke-width="2" class="hangman-part" id="rightLeg"/>
+            </svg>
+        </div>
+
+        <div class="word-container">
+            <div id="wordDisplay" class="word-display"></div>
+        </div>
+
+        <div class="attempts-container">
+            <p>Tentativas restantes: <span id="attemptsLeft">6</span></p>
+        </div>
+
+        <div class="input-container">
+            <input type="text" id="letterInput" placeholder="Digite uma letra" maxlength="1">
+            <button id="guessButton">Tentar</button>
+        </div>
+
+        <div class="letters-container">
+            <div class="correct-letters">
+                <h3>✅ Letras Corretas</h3>
+                <div id="correctLetters" class="letters-display"></div>
+            </div>
+            <div class="wrong-letters">
+                <h3>❌ Letras Erradas</h3>
+                <div id="wrongLetters" class="letters-display"></div>
+            </div>
+        </div>
+
+        <div id="message" class="message"></div>
+
+        <button id="resetButton" class="reset-button" style="display: none;">🔄 Novo Jogo</button>
+    </div>
+
+</body>
+</html>
+
