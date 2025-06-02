@@ -94,10 +94,16 @@ document.addEventListener('DOMContentLoaded', function() {
             exibirMensagem(resultado.mensagem, 'sucesso');
             console.log('Login realizado com sucesso:', { usuario, setor });
             
-            setTimeout(() => {
-                alert('Redirecionando para o sistema...');
-                // window.location.href = 'dashboard.html';
-            }, 2000);
+            if (setor === 'comercial') {
+                setTimeout(() => {
+                    window.location.href = '../comercial/comercial.html';
+                }, 1500);
+            } else {
+                setTimeout(() => {
+                    alert(`Bem-vindo ao setor ${setor.toUpperCase()}!`);
+                    // window.location.href = `${setor}.html`;
+                }, 2000);
+            }
             
         } else {
             exibirMensagem(resultado.mensagem, 'erro');
