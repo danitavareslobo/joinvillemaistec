@@ -49,12 +49,6 @@ function validarCredenciais(usuario, setor, senha) {
     }
 }
 
-function limparFormulario() {
-    document.getElementById('usuario').value = '';
-    document.getElementById('setor').value = '';
-    document.getElementById('senha').value = '';
-}
-
 function exibirMensagem(mensagem, tipo) {
     const mensagemAnterior = document.querySelector('.mensagem-login');
     if (mensagemAnterior) {
@@ -98,7 +92,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 setTimeout(() => {
                     window.location.href = '../comercial/comercial.html';
                 }, 1500);
-            } else {
+            } else if (setor === 'rh') {
+                setTimeout(() => {
+                    window.location.href = '../rh/rh.html';
+                }, 1500);
+            }             else {
                 setTimeout(() => {
                     alert(`Bem-vindo ao setor ${setor.toUpperCase()}!`);
                     // window.location.href = `${setor}.html`;

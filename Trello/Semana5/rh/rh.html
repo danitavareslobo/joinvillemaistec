@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setor RH - Recursos Humanos</title>
+    <link rel="stylesheet" href="rh.css">
+</head>
+<body>
+    <div class="pagina-rh">
+        <div class="rh-container">
+            <div class="rh-header">
+                <h1>Setor de Recursos Humanos</h1>
+                <p>Gestão de pessoas e informações funcionais</p>
+            </div>
+            
+            <div class="dashboard-rh">
+                <div class="welcome-section">
+                    <div class="welcome-card">
+                        <h2>Bem-vindo ao Portal RH</h2>
+                        <p>Acesse informações sobre funcionários, cargos e estrutura salarial da empresa.</p>
+                        
+                        <div class="acoes-rh">
+                            <button class="btn-ver-cargos" id="btn-ver-cargos">
+                                <span class="btn-icon">👥</span>
+                                Ver Cargos e Salários
+                            </button>
+                            
+                            <button class="btn-relatorios" id="btn-relatorios">
+                                <span class="btn-icon">📊</span>
+                                Relatórios
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tabela-section" id="tabela-section" style="display: none;">
+                    <div class="tabela-header">
+                        <h3>Estrutura de Cargos e Salários</h3>
+                        <div class="filtros">
+                            <select id="filtro-setor">
+                                <option value="">Todos os setores</option>
+                                <option value="Comercial">Comercial</option>
+                                <option value="RH">RH</option>
+                                <option value="TI">TI</option>
+                                <option value="Financeiro">Financeiro</option>
+                                <option value="Marketing">Marketing</option>
+                            </select>
+                            
+                            <input type="text" id="busca-nome" placeholder="Buscar por nome...">
+                        </div>
+                    </div>
+                    
+                    <div class="tabela-container">
+                        <table class="tabela-funcionarios" id="tabela-funcionarios">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Setor</th>
+                                    <th>Cargo</th>
+                                    <th>Salário</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-funcionarios">
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="estatisticas">
+                        <div class="stat-card">
+                            <h4>Total de Funcionários</h4>
+                            <span class="stat-number" id="total-funcionarios">0</span>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Média Salarial</h4>
+                            <span class="stat-number" id="media-salarial">R$ 0,00</span>
+                        </div>
+                        <div class="stat-card">
+                            <h4>Setores Ativos</h4>
+                            <span class="stat-number" id="setores-ativos">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="navegacao">
+                <button class="btn-voltar" id="btn-voltar">Voltar ao Login</button>
+                <button class="btn-ocultar" id="btn-ocultar" style="display: none;">Ocultar Tabela</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="rh.js"></script>
+</body>
+</html>
