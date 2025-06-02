@@ -96,10 +96,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 setTimeout(() => {
                     window.location.href = '../rh/rh.html';
                 }, 1500);
-            }             else {
+            } else if (setor === 'ti') {
+                setTimeout(() => {
+                    window.location.href = '../ti/ti.html';
+                }, 1500);
+            } else {
                 setTimeout(() => {
                     alert(`Bem-vindo ao setor ${setor.toUpperCase()}!`);
-                    // window.location.href = `${setor}.html`;
                 }, 2000);
             }
             

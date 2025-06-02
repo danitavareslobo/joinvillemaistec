@@ -262,7 +262,7 @@ ${[...new Set(funcionarios.map(f => f.setor))]
 
 function voltarLogin() {
     if (confirm('Deseja realmente voltar à tela de login?')) {
-        window.location.href = 'index.html';
+        window.location.href = '../login/login.html';
     }
 }
 

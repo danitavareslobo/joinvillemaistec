@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setor TI - Conversor Binário</title>
+    <link rel="stylesheet" href="ti.css">
+</head>
+<body>
+    <div class="pagina-ti">
+        <div class="ti-container">
+            <div class="ti-header">
+                <h1>Setor de Tecnologia da Informação</h1>
+                <p>Ferramentas e Utilitários para Desenvolvedores</p>
+            </div>
+            
+            <div class="dashboard-ti">
+                <div class="ferramenta-principal">
+                    <div class="conversor-card">
+                        <div class="card-header">
+                            <h2>🔢 Conversor Decimal para Binário</h2>
+                            <p>Digite um número decimal e converta para representação binária</p>
+                        </div>
+                        
+                        <div class="conversor-content">
+                            <div class="input-section">
+                                <label for="numero-decimal">Número Decimal:</label>
+                                <input type="number" 
+                                       id="numero-decimal" 
+                                       placeholder="Digite um número (ex: 42)" 
+                                       min="0" 
+                                       step="1">
+                                <small class="input-info">Apenas números inteiros positivos</small>
+                            </div>
+                            
+                            <div class="botao-section">
+                                <button class="btn-converter" id="btn-converter">
+                                    <span class="btn-icon">⚡</span>
+                                    Converter para Binário
+                                </button>
+                                <button class="btn-limpar" id="btn-limpar">
+                                    <span class="btn-icon">🗑️</span>
+                                    Limpar
+                                </button>
+                            </div>
+                            
+                            <div class="resultado-section" id="resultado-section" style="display: none;">
+                                <div class="resultado-card">
+                                    <h3>Resultado da Conversão:</h3>
+                                    <div class="conversao-display">
+                                        <div class="numero-original">
+                                            <span class="label">Decimal:</span>
+                                            <span class="valor" id="valor-decimal">-</span>
+                                        </div>
+                                        <div class="seta-conversao">→</div>
+                                        <div class="numero-binario">
+                                            <span class="label">Binário:</span>
+                                            <span class="valor" id="valor-binario">-</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="explicacao" id="explicacao">
+                                        <!-- Explicação do processo será inserida aqui -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="ferramentas-extras">
+                    <div class="info-card">
+                        <h3>💡 Como Funciona?</h3>
+                        <p>A conversão decimal para binário usa divisões sucessivas por 2, coletando os restos da divisão de baixo para cima.</p>
+                    </div>
+                    
+                    <div class="historico-card">
+                        <h3>📋 Histórico de Conversões</h3>
+                        <div class="historico-lista" id="historico-lista">
+                            <p class="historico-vazio">Nenhuma conversão realizada ainda.</p>
+                        </div>
+                        <button class="btn-limpar-historico" id="btn-limpar-historico" style="display: none;">
+                            Limpar Histórico
+                        </button>
+                    </div>
+                    
+                    <div class="outras-ferramentas">
+                        <h3>🛠️ Outras Ferramentas TI</h3>
+                        <div class="ferramentas-grid">
+                            <button class="ferramenta-btn" onclick="mostrarFerramenta('hex')">
+                                Conversor Hexadecimal
+                            </button>
+                            <button class="ferramenta-btn" onclick="mostrarFerramenta('base64')">
+                                Codificador Base64
+                            </button>
+                            <button class="ferramenta-btn" onclick="mostrarFerramenta('hash')">
+                                Gerador de Hash
+                            </button>
+                            <button class="ferramenta-btn" onclick="mostrarFerramenta('ip')">
+                                Calculadora IP
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="navegacao">
+                <button class="btn-voltar" id="btn-voltar">Voltar ao Login</button>
+                <button class="btn-mais-ferramentas" id="btn-mais-ferramentas">Ver Mais Ferramentas</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="ti.js"></script>
+</body>
+</html>
