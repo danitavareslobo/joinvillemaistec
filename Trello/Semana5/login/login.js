@@ -44,7 +44,7 @@ function validarCredenciais(usuario, setor, senha) {
     } else {
         return {
             valido: false,
-            mensagem: 'Usuário ou senha incorretos!'
+            mensagem: `Usuário ou senha incorretos para o setor ${setor.toUpperCase()}!`
         };
     }
 }
