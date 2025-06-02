@@ -14,6 +14,169 @@ body {
     color: #333;
 }
 
+.login-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.login-container {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 100%;
+    animation: slideIn 0.6s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.logo-container h1 {
+    color: #4a5568;
+    font-size: 3em;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.subtitle {
+    color: #718096;
+    font-size: 1.2em;
+    margin-bottom: 30px;
+    font-style: italic;
+}
+
+.login-form h2 {
+    color: #2d3748;
+    margin-bottom: 10px;
+    font-size: 1.8em;
+}
+
+.form-description {
+    color: #718096;
+    margin-bottom: 30px;
+    font-size: 1.1em;
+}
+
+.input-group {
+    margin-bottom: 30px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #4a5568;
+    font-size: 1.1em;
+}
+
+#playerName {
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 1.2em;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    background: #f7fafc;
+}
+
+#playerName:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    background: white;
+}
+
+#playerName:valid {
+    border-color: #48bb78;
+}
+
+.input-helper {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.9em;
+    color: #a0aec0;
+}
+
+.start-button {
+    width: 100%;
+    padding: 18px;
+    font-size: 1.3em;
+    font-weight: bold;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.start-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+}
+
+.start-button:disabled {
+    background: #a0aec0;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.welcome-message {
+    padding: 15px;
+    border-radius: 10px;
+    font-weight: bold;
+    min-height: 20px;
+    transition: all 0.3s ease;
+}
+
+.welcome-message.show {
+    background: #c6f6d5;
+    color: #2f855a;
+    border: 2px solid #9ae6b4;
+}
+
+.game-info {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f7fafc;
+    border-radius: 12px;
+    border: 2px solid #e2e8f0;
+    text-align: left;
+}
+
+.game-info h3 {
+    color: #4a5568;
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 1.3em;
+}
+
+.game-info ul {
+    list-style: none;
+}
+
+.game-info li {
+    padding: 8px 0;
+    font-size: 1.1em;
+    color: #2d3748;
+}
+
 .container {
     background: white;
     border-radius: 20px;
