@@ -2,7 +2,7 @@ import './Apresentacao.css';
 
 const Apresentacao = () => {
   return (
-    <section className="apresentacao">
+    <section id="inicio" className="apresentacao">
       <div className="apresentacao-container">
         <div className="apresentacao-texto">
           <div className="texto-wrapper">
