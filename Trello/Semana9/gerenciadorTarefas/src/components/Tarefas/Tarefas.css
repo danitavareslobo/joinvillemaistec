@@ -2,84 +2,213 @@
   display: flex;
   flex-direction: column;
   gap: 2rem;
+  width: 100%;
 }
 
-.tarefas-lista h2 {
+.tarefas-resumo {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border: 1px solid #e9ecef;
+}
+
+.tarefas-resumo h2 {
   color: #2c3e50;
   margin-bottom: 1rem;
   font-weight: 400;
+  text-align: center;
 }
 
-.sem-tarefas {
+.resumo-stats {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  padding: 0.5rem 1rem;
+  background-color: #f8f9fa;
+  border-radius: 20px;
+  font-weight: 500;
+  color: #2c3e50;
+  border: 1px solid #e9ecef;
+}
+
+.tarefas-por-periodo {
+  display: flex;
+  gap: 1.5rem;
+  min-height: 400px;
+  width: 100%;
+}
+
+.coluna-periodo {
+  flex: 1;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border: 1px solid #e9ecef;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-width: 250px;
+}
+
+.periodo-header {
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
   text-align: center;
+}
+
+.periodo-titulo {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.periodo-titulo.periodo-manhã {
+  color: #f39c12;
+}
+
+.periodo-titulo.periodo-tarde {
+  color: #e74c3c;
+}
+
+.periodo-titulo.periodo-noite {
+  color: #9b59b6;
+}
+
+.periodo-contador {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.total-tarefas {
+  font-weight: 600;
+  color: #2c3e50;
+  margin-right: 0.5rem;
+}
+
+.tarefas-concluidas {
+  color: #27ae60;
+  font-weight: 500;
+}
+
+.tarefas-lista-periodo {
+  flex: 1;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  overflow-y: auto;
+  min-height: 300px;
+}
+
+.sem-tarefas-periodo {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: #7f8c8d;
   font-style: italic;
-  padding: 2rem;
-  background-color: white;
-  border-radius: 8px;
+  text-align: center;
   border: 2px dashed #bdc3c7;
+  border-radius: 6px;
+  padding: 2rem;
+  background-color: #fafafa;
+  margin: 0;
 }
 
-.tarefas-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1rem;
+.sem-tarefas-periodo p {
+  margin: 0;
+  font-size: 0.9rem;
 }
 
-.tarefa-item {
-  background-color: white;
-  border-radius: 8px;
-  padding: 1rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+.tarefa-card {
+  background-color: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 6px;
+  padding: 0.75rem;
+  transition: all 0.2s ease;
   border-left: 4px solid #3498db;
-  transition: transform 0.2s ease;
+  cursor: pointer;
 }
 
-.tarefa-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+.tarefa-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
-.tarefa-item.concluida {
+.tarefa-card.tarefa-concluida {
   border-left-color: #27ae60;
-  opacity: 0.8;
+  background-color: #f8fff9;
+  opacity: 0.9;
 }
 
-.tarefa-header {
+.tarefa-card.tarefa-pendente {
+  border-left-color: #f39c12;
+}
+
+.tarefa-conteudo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.tarefa-descricao {
+  margin: 0;
+  color: #2c3e50;
+  line-height: 1.4;
+  font-size: 0.95rem;
+  word-wrap: break-word;
+}
+
+.tarefa-status {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 0.5rem;
 }
 
-.periodo-badge {
-  padding: 0.25rem 0.75rem;
+.status-badge {
+  padding: 0.25rem 0.5rem;
   border-radius: 12px;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   font-weight: 500;
   color: white;
 }
 
-.periodo-manhã {
+.status-badge.status-concluida {
+  background-color: #27ae60;
+}
+
+.status-badge.status-pendente {
   background-color: #f39c12;
 }
 
-.periodo-tarde {
-  background-color: #e74c3c;
+@media (max-width: 1024px) {
+  .tarefas-por-periodo {
+    flex-direction: column;
+  }
+  
+  .coluna-periodo {
+    min-width: auto;
+  }
 }
 
-.periodo-noite {
-  background-color: #9b59b6;
-}
-
-.tarefa-descricao {
-  font-size: 1rem;
-  margin-bottom: 0.75rem;
-  color: #2c3e50;
-  line-height: 1.4;
-}
-
-.tarefa-status {
-  font-size: 0.9rem;
-  color: #7f8c8d;
-  font-weight: 500;
+@media (max-width: 768px) {
+  .resumo-stats {
+    gap: 1rem;
+  }
+  
+  .stat-item {
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .tarefas-container {
+    gap: 1.5rem;
+  }
 }
