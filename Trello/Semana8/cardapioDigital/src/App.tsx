@@ -3,6 +3,7 @@ import Menu from './components/Menu/Menu'
 import Apresentacao from './components/Apresentacao/Apresentacao'
 import Gnocchi from './components/Gnocchi/Gnocchi'
 import Pastas from './components/Pastas/Pastas'
+import Bebidas from './components/Bebidas/Bebidas'
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Apresentacao />
       <Gnocchi />
       <Pastas />
+      <Bebidas />
     </div>
   )
 }
