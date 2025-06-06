@@ -1,6 +1,8 @@
+import './App.css'
 import Menu from './components/Menu/Menu'
 import Apresentacao from './components/Apresentacao/Apresentacao'
 import Gnocchi from './components/Gnocchi/Gnocchi'
+import Pastas from './components/Pastas/Pastas'
 
 function App() {
   return (
@@ -8,6 +10,7 @@ function App() {
       <Menu />
       <Apresentacao />
       <Gnocchi />
+      <Pastas />
     </div>
   )
 }

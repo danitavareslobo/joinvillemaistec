@@ -1,0 +1,308 @@
+.molhos-selector-section {
+  background: white;
+  border-radius: 20px;
+  padding: 3rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  margin-top: 3rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.molhos-selector-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #e74c3c, #c0392b, #e67e22, #e74c3c);
+  background-size: 300% 100%;
+  animation: gradientShift 4s ease-in-out infinite;
+}
+
+.molhos-selector-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.molhos-selector-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-family: 'Georgia', serif;
+  position: relative;
+}
+
+.molhos-selector-title::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background: linear-gradient(90deg, #e74c3c, #c0392b);
+  border-radius: 2px;
+}
+
+.molhos-selector-subtitle {
+  font-size: 1.1rem;
+  color: #7f8c8d;
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.molhos-selector-content {
+  animation: fadeInUp 1s ease-out 0.2s both;
+}
+
+.molhos-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.molho-info-card {
+  background: #f8f9fa;
+  border-radius: 15px;
+  padding: 2rem;
+  border-left: 4px solid #e74c3c;
+  transition: all 0.3s ease;
+  animation: slideInUp 0.6s ease-out both;
+  position: relative;
+  overflow: hidden;
+}
+
+.molho-info-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(231, 76, 60, 0.03), transparent);
+  transition: left 0.6s ease;
+}
+
+.molho-info-card:hover::before {
+  left: 100%;
+}
+
+.molho-info-card:hover {
+  transform: translateY(-5px);
+  background: #fff;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  border-left-color: #c0392b;
+}
+
+.molho-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.molho-card-nome {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin: 0;
+  font-family: 'Georgia', serif;
+}
+
+.pasta-emoji {
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.molho-info-card:hover .pasta-emoji {
+  transform: scale(1.2) rotate(10deg);
+}
+
+.molho-card-descricao {
+  color: #7f8c8d;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.molho-disponivel {
+  margin-top: 1.5rem;
+}
+
+.disponivel-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #2c3e50;
+  display: block;
+  margin-bottom: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.pastas-disponiveis {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.pasta-disponivel-tag {
+  background: linear-gradient(45deg, #3498db, #2980b9);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.pasta-disponivel-tag:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+  background: linear-gradient(45deg, #2980b9, #1abc9c);
+}
+
+.molhos-selector-note {
+  background: linear-gradient(135deg, #e8f8f5, #d5f4e6);
+  border-radius: 15px;
+  padding: 2rem;
+  border: 1px solid #a3e4d7;
+  animation: fadeInUp 1.2s ease-out 0.4s both;
+}
+
+.note-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.note-icon {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.note-text {
+  color: #2c5530;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.note-text strong {
+  color: #1e4620;
+  font-weight: 600;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes gradientShift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .molhos-selector-section {
+    padding: 2rem;
+    margin-top: 2rem;
+  }
+  
+  .molhos-selector-title {
+    font-size: 2rem;
+  }
+  
+  .molhos-selector-subtitle {
+    font-size: 1rem;
+  }
+  
+  .molhos-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .molho-info-card {
+    padding: 1.5rem;
+  }
+  
+  .molho-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .molho-card-nome {
+    font-size: 1.2rem;
+  }
+  
+  .pastas-disponiveis {
+    gap: 0.4rem;
+  }
+  
+  .pasta-disponivel-tag {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.6rem;
+  }
+  
+  .note-content {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .molhos-selector-note {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .molhos-selector-section {
+    padding: 1.5rem;
+  }
+  
+  .molhos-selector-title {
+    font-size: 1.8rem;
+  }
+  
+  .molho-info-card {
+    padding: 1.2rem;
+  }
+  
+  .molho-card-nome {
+    font-size: 1.1rem;
+  }
+  
+  .molho-card-descricao {
+    font-size: 0.9rem;
+  }
+  
+  .pasta-disponivel-tag {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.5rem;
+  }
+}
