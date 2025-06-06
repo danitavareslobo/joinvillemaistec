@@ -1,3 +1,4 @@
+import React from 'react';
 import './MolhosSelector.css';
 
 interface MolhoInfo {
@@ -6,7 +7,7 @@ interface MolhoInfo {
   disponivel: string[];
 }
 
-const MolhosSelector = () => {
+const MolhosSelector: React.FC = () => {
   const molhosInfo: MolhoInfo[] = [
     {
       nome: "Alla Puttanesca",

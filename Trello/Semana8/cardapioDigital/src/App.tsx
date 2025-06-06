@@ -1,20 +1,13 @@
-import './App.css'
-import Menu from './components/Menu/Menu'
-import Apresentacao from './components/Apresentacao/Apresentacao'
-import Gnocchi from './components/Gnocchi/Gnocchi'
-import Pastas from './components/Pastas/Pastas'
-import Bebidas from './components/Bebidas/Bebidas'
+import React from 'react';
+import Cardapio from './components/Cardapio/Cardapio';
+import './App.css';
 
-function App() {
+const App: React.FC = () => {
   return (
     <div className="App">
-      <Menu />
-      <Apresentacao />
-      <Gnocchi />
-      <Pastas />
-      <Bebidas />
+      <Cardapio />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;

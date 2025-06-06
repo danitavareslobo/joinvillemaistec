@@ -1,7 +1,14 @@
+import React from 'react';
 import './Molhos.css';
 
-const Molhos = () => {
-  const molhosOptions = [
+interface MolhoOption {
+  id: number;
+  nome: string;
+  descricao: string;
+}
+
+const Molhos: React.FC = () => {
+  const molhosOptions: MolhoOption[] = [
     {
       id: 1,
       nome: "Alla Puttanesca",

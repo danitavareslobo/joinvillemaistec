@@ -1,6 +1,7 @@
+import React from 'react';
 import './Apresentacao.css';
 
-const Apresentacao = () => {
+const Apresentacao: React.FC = () => {
   return (
     <section id="inicio" className="apresentacao">
       <div className="apresentacao-container">

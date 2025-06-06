@@ -1,4 +1,7 @@
+import React from 'react';
 import './Bebidas.css';
+import type { CategoriaType } from '../../utils';
+import { getCategoriaIcon, getCategoriaColor } from '../../utils';
 
 interface BebidaItem {
   id: number;
@@ -6,10 +9,10 @@ interface BebidaItem {
   preco: string;
   imagem: string;
   descricao: string;
-  categoria: string;
+  categoria: CategoriaType;
 }
 
-const Bebidas = () => {
+const Bebidas: React.FC = () => {
   const bebidasOptions: BebidaItem[] = [
     {
       id: 1,
@@ -77,28 +80,10 @@ const Bebidas = () => {
     }
   ];
 
-  const categorias = ["Água", "Refrigerante", "Sucos"];
+  const categorias: CategoriaType[] = ["Água", "Refrigerante", "Sucos"];
 
-  const getBebidasByCategoria = (categoria: string) => {
+  const getBebidasByCategoria = (categoria: CategoriaType): BebidaItem[] => {
     return bebidasOptions.filter(bebida => bebida.categoria === categoria);
-  };
-
-  const getCategoriaIcon = (categoria: string) => {
-    switch (categoria) {
-      case "Água": return "💧";
-      case "Refrigerante": return "🥤";
-      case "Sucos": return "🧃";
-      default: return "🥤";
-    }
-  };
-
-  const getCategoriaColor = (categoria: string) => {
-    switch (categoria) {
-      case "Água": return "#3498db";
-      case "Refrigerante": return "#e74c3c";
-      case "Sucos": return "#f39c12";
-      default: return "#95a5a6";
-    }
   };
 
   return (

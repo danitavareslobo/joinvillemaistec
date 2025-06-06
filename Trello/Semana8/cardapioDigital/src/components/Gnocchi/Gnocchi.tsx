@@ -1,3 +1,4 @@
+import React from 'react';
 import './Gnocchi.css';
 import Molhos from '../Molhos/Molhos';
 
@@ -9,7 +10,7 @@ interface GnocchiItem {
   descricao: string;
 }
 
-const Gnocchi = () => {
+const Gnocchi: React.FC = () => {
   const gnocchiOptions: GnocchiItem[] = [
     {
       id: 1,

@@ -1,3 +1,4 @@
+import React from 'react';
 import './Pastas.css';
 import MolhosSelector from '../MolhosSelector/MolhosSelector';
 
@@ -10,7 +11,7 @@ interface PastaItem {
   molhosPermitidos: string[];
 }
 
-const Pastas = () => {
+const Pastas: React.FC = () => {
   const pastasOptions: PastaItem[] = [
     {
       id: 1,

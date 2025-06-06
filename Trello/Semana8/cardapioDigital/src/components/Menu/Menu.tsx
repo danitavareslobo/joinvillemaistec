@@ -1,28 +1,29 @@
+import React from 'react';
 import './Menu.css';
 
-const Menu = () => {
-  const scrollToSection = (sectionId: string) => {
-    console.log('Tentando navegar para:', sectionId);
-    const element = document.getElementById(sectionId);
-    
-    if (element) {
-      console.log('Elemento encontrado:', element);
-      const headerOffset = 80;
-      const elementPosition = element.offsetTop;
-      const offsetPosition = Math.max(0, elementPosition - headerOffset);
+const Menu: React.FC = () => {
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
-    } else {
-      console.log('Elemento não encontrado, usando fallback');
-      if (sectionId === 'inicio') {
-        window.scrollTo({
-          top: 0,
-          behavior: 'smooth'
-        });
-      }
+  const scrollToGnocchi = () => {
+    const element = document.getElementById('gnocchi');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const scrollToPastas = () => {
+    const element = document.getElementById('pastas');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const scrollToBebidas = () => {
+    const element = document.getElementById('bebidas');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
@@ -33,22 +34,38 @@ const Menu = () => {
         
         <ul className="menu-list">
           <li className="menu-item">
-            <button onClick={() => scrollToSection('inicio')} className="menu-link">
+            <button 
+              onClick={scrollToTop}
+              className="menu-link"
+              type="button"
+            >
               Início
             </button>
           </li>
           <li className="menu-item">
-            <button onClick={() => scrollToSection('gnocchi')} className="menu-link">
+            <button 
+              onClick={scrollToGnocchi}
+              className="menu-link"
+              type="button"
+            >
               Gnocchi
             </button>
           </li>
           <li className="menu-item">
-            <button onClick={() => scrollToSection('pastas')} className="menu-link">
+            <button 
+              onClick={scrollToPastas}
+              className="menu-link"
+              type="button"
+            >
               Pastas
             </button>
           </li>
           <li className="menu-item">
-            <button onClick={() => scrollToSection('bebidas')} className="menu-link">
+            <button 
+              onClick={scrollToBebidas}
+              className="menu-link"
+              type="button"
+            >
               Bebidas
             </button>
           </li>
