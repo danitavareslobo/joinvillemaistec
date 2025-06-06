@@ -17,6 +17,14 @@ const Tarefas: React.FC = () => {
     setTarefas([...tarefas, tarefa]);
   };
 
+  const alternarConclusaoTarefa = (id: number): void => {
+    setTarefas(tarefas.map(tarefa => 
+      tarefa.id === id 
+        ? { ...tarefa, concluida: !tarefa.concluida }
+        : tarefa
+    ));
+  };
+
   const tarefasPorPeriodo = (periodo: Periodo): Tarefa[] => {
     return tarefas.filter(tarefa => tarefa.periodo === periodo);
   };
@@ -75,7 +83,21 @@ const Tarefas: React.FC = () => {
                       className={`tarefa-card ${tarefa.concluida ? 'tarefa-concluida' : 'tarefa-pendente'}`}
                     >
                       <div className="tarefa-conteudo">
-                        <p className="tarefa-descricao">{tarefa.descricao}</p>
+                        <div className="tarefa-checkbox-area">
+                          <input
+                            type="checkbox"
+                            id={`tarefa-${tarefa.id}`}
+                            checked={tarefa.concluida}
+                            onChange={() => alternarConclusaoTarefa(tarefa.id)}
+                            className="tarefa-checkbox"
+                          />
+                          <label 
+                            htmlFor={`tarefa-${tarefa.id}`}
+                            className={`tarefa-descricao ${tarefa.concluida ? 'tarefa-descricao-concluida' : ''}`}
+                          >
+                            {tarefa.descricao}
+                          </label>
+                        </div>
                         <div className="tarefa-status">
                           <span className={`status-badge ${tarefa.concluida ? 'status-concluida' : 'status-pendente'}`}>
                             {tarefa.concluida ? '✓ Concluída' : '⏳ Pendente'}
