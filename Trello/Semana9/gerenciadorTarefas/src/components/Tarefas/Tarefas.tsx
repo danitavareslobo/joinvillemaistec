@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import AdicionarTarefa from '../AdicionarTarefas/AdicionarTarefas';
+import PercentualConclusao from '../PercentualConclusao/PercentualConclusao';
 import type { Tarefa, NovaTarefa, Periodo } from '../../types';
 import './Tarefas.css';
 
@@ -41,6 +42,13 @@ const Tarefas: React.FC = () => {
     <div className="tarefas-container">
       <AdicionarTarefa onAdicionarTarefa={adicionarTarefa} />
       
+      <PercentualConclusao 
+        totalTarefas={tarefas.length}
+        tarefasCompletas={totalTarefasConcluidas}
+        titulo="Progresso das Tarefas Diárias"
+        mostrarDetalhes={true}
+      />
+      
       <div className="tarefas-resumo">
         <h2>Suas Tarefas</h2>
         <div className="resumo-stats">
@@ -69,6 +77,17 @@ const Tarefas: React.FC = () => {
                     </div>
                   )}
                 </div>
+                
+                {tarefasDestePeriodo.length > 0 && (
+                  <div className="percentual-periodo">
+                    <PercentualConclusao 
+                      totalTarefas={tarefasDestePeriodo.length}
+                      tarefasCompletas={concluidasDestePeriodo}
+                      titulo={`${periodo}`}
+                      mostrarDetalhes={false}
+                    />
+                  </div>
+                )}
               </div>
 
               <div className="tarefas-lista-periodo">

@@ -1,0 +1,161 @@
+.percentual-conclusao-container {
+  background-color: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  border: 1px solid #e9ecef;
+  margin-bottom: 1rem;
+}
+
+.percentual-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.percentual-titulo {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.percentual-valor {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.barra-progresso {
+  width: 100%;
+  height: 12px;
+  background-color: #e9ecef;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.barra-preenchimento {
+  height: 100%;
+  border-radius: 6px;
+  transition: width 0.6s ease-in-out;
+  position: relative;
+  overflow: hidden;
+}
+
+.progresso-inicial {
+  background: linear-gradient(135deg, #ff7979 0%, #ff6b6b 100%);
+}
+
+.progresso-baixo {
+  background: linear-gradient(135deg, #fdcb6e 0%, #f39c12 100%);
+}
+
+.progresso-medio {
+  background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+}
+
+.progresso-alto {
+  background: linear-gradient(135deg, #55a3ff 0%, #3742fa 100%);
+}
+
+.progresso-completo {
+  background: linear-gradient(135deg, #00b894 0%, #00cec9 100%);
+}
+
+.barra-animacao {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-image: linear-gradient(
+    -45deg,
+    rgba(255, 255, 255, .2) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, .2) 50%,
+    rgba(255, 255, 255, .2) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 30px 30px;
+  animation: move-stripes 2s linear infinite;
+}
+
+@keyframes move-stripes {
+  0% { background-position: 0 0; }
+  100% { background-position: 30px 0; }
+}
+
+.percentual-detalhes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.detalhes-numeros {
+  text-align: center;
+}
+
+.detalhe-item {
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.detalhe-item strong {
+  color: #2c3e50;
+  font-weight: 600;
+}
+
+.mensagem-motivacional {
+  text-align: center;
+  padding: 0.75rem;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  border-radius: 6px;
+  border-left: 4px solid #3498db;
+  font-size: 0.9rem;
+  color: #495057;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .percentual-conclusao-container {
+    padding: 1rem;
+  }
+  
+  .percentual-header {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+  
+  .percentual-valor {
+    font-size: 1.25rem;
+  }
+  
+  .percentual-titulo {
+    font-size: 1rem;
+  }
+  
+  .mensagem-motivacional {
+    font-size: 0.8rem;
+    padding: 0.5rem;
+  }
+}
+
+.percentual-conclusao-container:hover .barra-preenchimento {
+  transform: scaleY(1.1);
+  transition: transform 0.2s ease;
+}
+
+.percentual-conclusao-container:hover .percentual-valor {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
