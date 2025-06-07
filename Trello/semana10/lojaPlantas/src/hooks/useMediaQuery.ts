@@ -39,7 +39,7 @@ export const useBreakpoints = () => {
     isMobile,
     isTablet,
     isDesktop,
-    getColumns: () => {
+    getColumns: (): number => {
       if (isMobile) return 1;
       if (isTablet) return 2;
       return 3;

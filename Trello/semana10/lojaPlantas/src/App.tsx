@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import type { Plant } from './types/Plant';
 import PlantGrid from './components/organisms/PlantGrid';
 import Button from './components/atoms/Button';
+import ThemeToggle from './components/atoms/ThemeToggle';
+import { ThemeProvider } from './theme/ThemeContext';
 import styles from './App.module.css';
 
-const App: React.FC = () => {
+const AppContent: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [plants, setPlants] = useState<Plant[]>([]);
   const [cartItems, setCartItems] = useState<Plant[]>([]);
@@ -58,10 +60,14 @@ const App: React.FC = () => {
     <div className={styles.app}>
       <div className={styles.container}>
         <header className={styles.header}>
-          <h1 className={styles.title}>
-            🌱 Loja de Plantas
-          </h1>
-          
+          <div className={styles.headerTop}>
+            <div className={styles.headerContent}>
+              <h1 className={styles.title}>
+                🌱 Loja de Plantas
+              </h1>
+              <ThemeToggle size="md" />
+            </div>
+          </div>
         </header>
 
         {cartItems.length > 0 && (
@@ -99,15 +105,40 @@ const App: React.FC = () => {
           </Button>
         </div>
 
+        <div className={styles.themeDemo}>
+          <h3 className={styles.themeDemoTitle}>🎨 Teste o Sistema de Temas</h3>
+          <div className={styles.themeButtons}>
+            <div className={styles.colorSwatch} style={{ backgroundColor: 'var(--color-primary)' }}>
+              Primary
+            </div>
+            <div className={styles.colorSwatch} style={{ backgroundColor: 'var(--color-secondary)' }}>
+              Secondary
+            </div>
+            <div className={styles.colorSwatch} style={{ backgroundColor: 'var(--color-accent)' }}>
+              Accent
+            </div>
+          </div>
+          <p className={styles.themeInstruction}>
+            👆 Clique no botão de tema no topo e veja as cores mudarem!
+          </p>
+        </div>
+
         <PlantGrid 
           plants={plants}
           onAddToCart={handleAddToCart}
           loading={loading}
           emptyStateMessage="Nenhuma planta disponível no momento. Tente novamente mais tarde!"
         />
-
       </div>
     </div>
+  );
+};
+
+const App: React.FC = () => {
+  return (
+    <ThemeProvider defaultTheme="light">
+      <AppContent />
+    </ThemeProvider>
   );
 };
 
