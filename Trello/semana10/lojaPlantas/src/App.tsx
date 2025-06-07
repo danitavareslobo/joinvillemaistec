@@ -1,94 +1,114 @@
-import './App.css'
-import Button from './components/atoms/Button/Button'
-import PlantIcon from './components/atoms/PlantIcon/PlantIcon'
-import PriceTag from './components/atoms/PriceTag/PriceTag'
+import React, { useState, useEffect } from 'react';
+import type { Plant } from './types/Plant';
+import PlantGrid from './components/organisms/PlantGrid';
+import Button from './components/atoms/Button';
+import styles from './App.module.css';
 
+const App: React.FC = () => {
+  const [loading, setLoading] = useState(true);
+  const [plants, setPlants] = useState<Plant[]>([]);
+  const [cartItems, setCartItems] = useState<Plant[]>([]);
 
-function App() {
+  const mockPlants: Plant[] = [
+    { id: "1", name: "Suculenta", price: 29.9, light: "sun" },
+    { id: "2", name: "Samambaia", price: 39.9, light: "shade" },
+    { id: "3", name: "Cacto", price: 19.9, light: "sun" },
+    { id: "4", name: "Violeta", price: 24.9, light: "shade" },
+    { id: "5", name: "Rosa do Deserto", price: 45.9, light: "sun" },
+    { id: "6", name: "Jiboia", price: 34.9, light: "shade" },
+    { id: "7", name: "Espada de São Jorge", price: 32.9, light: "sun" },
+    { id: "8", name: "Antúrio", price: 42.9, light: "shade" },
+  ];
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setPlants(mockPlants);
+      setLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleAddToCart = (plant: Plant) => {
+    setCartItems(prev => [...prev, plant]);
+    alert(`🌱 ${plant.name} adicionada ao carrinho por ${new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL'
+    }).format(plant.price)}!`);
+  };
+
+  const handleToggleLoading = () => {
+    setLoading(!loading);
+    if (!loading) {
+      setTimeout(() => setLoading(false), 2000);
+    }
+  };
+
+  const handleClearPlants = () => {
+    setPlants([]);
+  };
+
+  const handleRestorePlants = () => {
+    setPlants(mockPlants);
+  };
+
+  const totalCartValue = cartItems.reduce((acc, item) => acc + item.price, 0);
+
   return (
-    <div className="app">
-      <header className="app-header">
-        <PlantIcon size="lg" />
-        <h1>Loja de Plantas</h1>
-        <p>E-commerce de Plantas de Jardim</p>
-      </header>
-      
-      <main className="demo-section">
-        <h2>Demonstração dos Atoms</h2>
-        
-        <div className="demo-grid">
-          <div className="demo-item">
-            <h3>
-              <PlantIcon size="sm" /> Buttons
-            </h3>
-            <div className="demo-content">
-              <Button variant="primary">Comprar Agora</Button>
-              <Button variant="secondary">Ver Detalhes</Button>
-              <Button variant="primary" disabled>Indisponível</Button>
-            </div>
-          </div>
+    <div className={styles.app}>
+      <div className={styles.container}>
+        <header className={styles.header}>
+          <h1 className={styles.title}>
+            🌱 Loja de Plantas
+          </h1>
+          
+        </header>
 
-          <div className="demo-item">
-            <h3>
-              <PlantIcon size="sm" /> PriceTag
+        {cartItems.length > 0 && (
+          <div className={styles.cart}>
+            <h3 className={styles.cartTitle}>
+              🛒 Carrinho ({cartItems.length} {cartItems.length === 1 ? 'item' : 'itens'})
             </h3>
-            <div className="demo-content">
-              <PriceTag value={29.90} />
-              <PriceTag value={159.50} />
-              <PriceTag value={12.30} />
-            </div>
+            <p className={styles.cartTotal}>
+              Total: {new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+              }).format(totalCartValue)}
+            </p>
           </div>
+        )}
 
-          <div className="demo-item">
-            <h3>
-              <PlantIcon size="sm" /> PlantIcon
-            </h3>
-            <div className="demo-content">
-              <div className="icon-row">
-                <PlantIcon size="sm" />
-                <span>Pequeno</span>
-              </div>
-              <div className="icon-row">
-                <PlantIcon size="md" />
-                <span>Médio</span>
-              </div>
-              <div className="icon-row">
-                <PlantIcon size="lg" />
-                <span>Grande</span>
-              </div>
-            </div>
-          </div>
-
-          <div className="demo-item demo-item--full">
-            <h3>
-              <PlantIcon size="sm" /> Combinação dos Atoms
-            </h3>
-            <div className="product-demo">
-              <div className="product-card">
-                <PlantIcon size="md" color="#4a7c59" />
-                <h4>Samambaia</h4>
-                <PriceTag value={45.90} />
-                <div className="product-actions">
-                  <Button variant="primary">Comprar</Button>
-                  <Button variant="secondary">Detalhes</Button>
-                </div>
-              </div>
-              
-              <div className="product-card">
-                <PlantIcon size="md" color="#6b7c4a" />
-                <h4>Suculenta</h4>
-                <PriceTag value={18.50} />
-                <div className="product-actions">
-                  <Button variant="primary">Comprar</Button>
-                  <Button variant="secondary">Detalhes</Button>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className={styles.controls}>
+          <Button 
+            variant="primary"
+            onClick={handleToggleLoading}
+          >
+            {loading ? '⏸️ Parar Loading' : '🔄 Simular Loading'}
+          </Button>
+          <Button 
+            variant="secondary"
+            onClick={handleClearPlants}
+          >
+            🗑️ Limpar Grid
+          </Button>
+          <Button 
+            variant="primary"
+            onClick={handleRestorePlants}
+          >
+            🌿 Restaurar Plantas
+          </Button>
         </div>
-      </main>
-    </div>
-  )
-}
 
-export default App
+        <PlantGrid 
+          plants={plants}
+          onAddToCart={handleAddToCart}
+          loading={loading}
+          emptyStateMessage="Nenhuma planta disponível no momento. Tente novamente mais tarde!"
+        />
+
+      </div>
+    </div>
+  );
+};
+
+export default App;
