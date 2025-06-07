@@ -1,5 +1,6 @@
 import React from 'react';
 import Tarefas from './components/Tarefas/Tarefas';
+import Cronometro from './components/Cronometro/Cronometro';
 import './App.css';
 
 const App: React.FC = () => {
@@ -10,6 +11,7 @@ const App: React.FC = () => {
       </header>
       <main className="app-main">
         <Tarefas />
+        <Cronometro />
       </main>
     </div>
   );
