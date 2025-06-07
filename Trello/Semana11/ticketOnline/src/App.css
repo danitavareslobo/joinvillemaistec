@@ -21,10 +21,7 @@ body {
 
 .main-content {
   flex: 1;
-  padding: var(--spacing-2xl);
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  padding: var(--spacing-xl) 0;
   min-height: calc(100vh - 70px);
 }
 
@@ -35,6 +32,8 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 60vh;
+  margin: 0 auto;
+  padding: 0 var(--spacing-xl);
 }
 
 .page-content {
@@ -73,6 +72,11 @@ body {
   margin-bottom: var(--spacing-lg);
 }
 
+.filme-page {
+  width: 100%;
+  min-height: 100%;
+}
+
 .btn-back {
   background: var(--primary-color);
   color: var(--text-white);
@@ -101,8 +105,13 @@ body {
 
 @media (max-width: 768px) {
   .main-content {
-    padding: var(--spacing-lg);
+    padding: var(--spacing-lg) 0;
     min-height: calc(100vh - 60px);
+  }
+  
+  .page-container {
+    padding: 0 var(--spacing-lg);
+    min-height: 50vh;
   }
   
   .page-content {
@@ -121,7 +130,11 @@ body {
 
 @media (max-width: 480px) {
   .main-content {
-    padding: var(--spacing-md);
+    padding: var(--spacing-md) 0;
+  }
+  
+  .page-container {
+    padding: 0 var(--spacing-md);
   }
   
   .page-content {

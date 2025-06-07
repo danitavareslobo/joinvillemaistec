@@ -1,0 +1,126 @@
+.filme-grid-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+}
+
+.filme-grid-header {
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
+}
+
+.filme-grid-header h2 {
+  color: var(--theme-text-primary);
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 var(--spacing-sm) 0;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.filme-grid-header p {
+  color: var(--theme-text-secondary);
+  font-size: var(--font-size-lg);
+  margin: 0;
+}
+
+.filme-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--spacing-xl);
+  justify-items: center;
+}
+
+.filme-grid-item {
+  width: 100%;
+  max-width: 320px;
+  opacity: 0;
+  animation: fadeInScale 0.6s ease-out forwards;
+}
+
+.filme-grid-empty {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+  padding: var(--spacing-xl);
+}
+
+.empty-state {
+  text-align: center;
+  background: var(--theme-card-bg);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--theme-border-color);
+  padding: var(--spacing-2xl);
+  max-width: 400px;
+}
+
+.empty-state h3 {
+  color: var(--theme-text-primary);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  margin: 0 0 var(--spacing-md) 0;
+}
+
+.empty-state p {
+  color: var(--theme-text-secondary);
+  font-size: var(--font-size-base);
+  margin: 0;
+  line-height: 1.6;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@media (max-width: 1024px) {
+  .filme-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+  }
+}
+
+@media (max-width: 768px) {
+  .filme-grid-container {
+    padding: var(--spacing-lg);
+  }
+  
+  .filme-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--spacing-md);
+  }
+  
+  .filme-grid-header h2 {
+    font-size: var(--font-size-2xl);
+  }
+  
+  .filme-grid-header p {
+    font-size: var(--font-size-base);
+  }
+}
+
+@media (max-width: 480px) {
+  .filme-grid {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+  }
+  
+  .filme-grid-item {
+    max-width: 100%;
+  }
+  
+  .empty-state {
+    padding: var(--spacing-xl);
+  }
+}
