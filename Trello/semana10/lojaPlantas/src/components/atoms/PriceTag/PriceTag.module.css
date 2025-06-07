@@ -1,0 +1,15 @@
+.priceTag {
+  background: linear-gradient(135deg, #4caf50, #8bc34a);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-weight: 700;
+  font-size: 1rem;
+  display: inline-block;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease-in-out;
+}
+
+.priceTag:hover {
+  transform: scale(1.05);
+}
