@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { ThemeProvider } from './contexts/ThemeContext';
-import Navbar from './components/organisms/Navbar/Navbar';
-import FilmeGrid from './components/organisms/FilmeGrid/FilmeGrid';
-import FilmeDetalhes from './components/organisms/FilmeDetalhes/FilmeDetalhes';
-import ContatoForm from './components/organisms/ContatoForm/ContatoForm';
-import { filmesMock, getFilmeById } from './data/filmesMock';
-import type { Filme, ContatoFormData } from './types';
+import InicioPage from './pages/InicioPage/InicioPage';
+import FilmesPage from './pages/FilmesPage/FilmesPage';
+import DetFilmesPage from './pages/DetFilmesPage/DetFilmesPage';
+import ContatoPage from './pages/ContatoPage/ContatoPage';
+import { getFilmeById } from './data/filmesMock';
+import type { Filme } from './types';
 import './App.css';
+import './styles/global.css';
+import './styles/variables.css';
 
 type PageType = 'inicio' | 'filmes' | 'detalhesFilme' | 'contato';
 
@@ -15,68 +17,6 @@ const pages: Record<string, PageType> = {
   filmes: 'filmes',
   detalhesFilme: 'detalhesFilme',
   contato: 'contato'
-};
-
-const InicioPage: React.FC = () => (
-  <div className="page-container">
-    <div className="page-content">
-      <h1>Página Inicial - TicketOnline</h1>
-      <p>Bem-vindo à nossa loja de tickets de cinema!</p>
-    </div>
-  </div>
-);
-
-interface FilmesPageProps {
-  onVerMais: (id: number) => void;
-}
-
-const FilmesPage: React.FC<FilmesPageProps> = ({ onVerMais }) => (
-  <div className="filme-page">
-    <FilmeGrid filmes={filmesMock} onVerMais={onVerMais} />
-  </div>
-);
-
-interface DetalhesFilmePageProps {
-  filme: Filme | null;
-  onVoltar: () => void;
-}
-
-const DetalhesFilmePage: React.FC<DetalhesFilmePageProps> = ({ filme, onVoltar }) => {
-  if (!filme) {
-    return (
-      <div className="page-container">
-        <div className="page-content">
-          <h1>Filme não encontrado</h1>
-          <p>O filme solicitado não foi encontrado.</p>
-          <button className="btn-back" onClick={onVoltar}>← Voltar</button>
-        </div>
-      </div>
-    );
-  }
-
-  return (
-    <div className="filme-page">
-      <FilmeDetalhes filme={filme} onVoltar={onVoltar} />
-    </div>
-  );
-};
-
-const ContatoPage: React.FC = () => {
-  const handleSubmit = (data: ContatoFormData) => {
-    console.log('📧 Dados do formulário:', data);
-    alert(`Mensagem enviada com sucesso!
-    
-📧 E-mail: ${data.email}
-📋 Assunto: ${data.assunto}
-💬 Mensagem: ${data.mensagem}
-🚨 Urgente: ${data.urgencia ? 'Sim' : 'Não'}`);
-  };
-
-  return (
-    <div className="contato-page">
-      <ContatoForm onSubmit={handleSubmit} />
-    </div>
-  );
 };
 
 const App: React.FC = () => {
@@ -103,26 +43,51 @@ const App: React.FC = () => {
   const renderPage = (): React.ReactElement => {
     switch(currentPage) {
       case pages.inicio:
-        return <InicioPage />;
+        return (
+          <InicioPage 
+            currentPage={currentPage} 
+            onNavigate={handleNavigate} 
+          />
+        );
       case pages.filmes:
-        return <FilmesPage onVerMais={handleVerMais} />;
+        return (
+          <FilmesPage 
+            currentPage={currentPage} 
+            onNavigate={handleNavigate}
+            onVerMais={handleVerMais}
+          />
+        );
       case pages.detalhesFilme:
         const filme = selectedFilmeId ? getFilmeById(selectedFilmeId) : null;
-        return <DetalhesFilmePage filme={filme || null} onVoltar={handleVoltar} />;
+        return (
+          <DetFilmesPage 
+            currentPage={currentPage} 
+            onNavigate={handleNavigate}
+            filme={filme || null}
+            onVoltar={handleVoltar}
+          />
+        );
       case pages.contato:
-        return <ContatoPage />;
+        return (
+          <ContatoPage 
+            currentPage={currentPage} 
+            onNavigate={handleNavigate}
+          />
+        );
       default:
-        return <InicioPage />;
+        return (
+          <InicioPage 
+            currentPage={currentPage} 
+            onNavigate={handleNavigate} 
+          />
+        );
     }
   };
 
   return (
     <ThemeProvider>
       <div className="app">
-        <Navbar currentPage={currentPage} onNavigate={handleNavigate} />
-        <main className="main-content">
-          {renderPage()}
-        </main>
+        {renderPage()}
       </div>
     </ThemeProvider>
   );

@@ -1,0 +1,43 @@
+.template-filmes {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--theme-bg-primary);
+}
+
+.template-main-filmes {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: var(--spacing-xl) 0;
+  width: 100%;
+  min-height: auto;
+}
+
+.filmes-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  min-height: calc(100vh - 300px);
+}
+
+@media (max-width: 768px) {
+  .template-main-filmes {
+    padding: var(--spacing-lg) 0;
+  }
+  
+  .filmes-container {
+    min-height: calc(100vh - 250px);
+  }
+}
+
+@media (max-width: 480px) {
+  .template-main-filmes {
+    padding: var(--spacing-md) 0;
+  }
+  
+  .filmes-container {
+    min-height: calc(100vh - 200px);
+  }
+}
