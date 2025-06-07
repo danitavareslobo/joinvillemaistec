@@ -5,7 +5,6 @@ import FilmesPage from './pages/FilmesPage/FilmesPage';
 import DetFilmesPage from './pages/DetFilmesPage/DetFilmesPage';
 import ContatoPage from './pages/ContatoPage/ContatoPage';
 import { getFilmeById } from './data/filmesMock';
-import type { Filme } from './types';
 import './App.css';
 import './styles/global.css';
 import './styles/variables.css';
