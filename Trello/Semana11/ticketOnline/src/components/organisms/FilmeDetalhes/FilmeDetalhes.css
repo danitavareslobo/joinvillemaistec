@@ -1,8 +1,6 @@
 .filme-detalhes-container {
   width: 100%;
   max-width: 1200px;
-  margin: 0 auto;
-  padding: var(--spacing-xl);
 }
 
 .filme-detalhes {
@@ -27,8 +25,7 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
-  margin: 0 0 var(--spacing-xl) var(--spacing-xl);
-  margin-top: var(--spacing-xl);
+  margin: var(--spacing-xl) 0 var(--spacing-xl) var(--spacing-xl);
 }
 
 .btn-voltar:hover {
@@ -188,13 +185,10 @@
 }
 
 @media (max-width: 768px) {
-  .filme-detalhes-container {
-    padding: var(--spacing-lg);
-  }
-  
   .filme-detalhes-content {
     grid-template-columns: 1fr;
     gap: var(--spacing-xl);
+    padding: 0 var(--spacing-lg) var(--spacing-lg);
   }
   
   .filme-detalhes-image {

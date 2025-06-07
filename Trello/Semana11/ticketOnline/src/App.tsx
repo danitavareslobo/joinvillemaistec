@@ -3,8 +3,9 @@ import { ThemeProvider } from './contexts/ThemeContext';
 import Navbar from './components/organisms/Navbar/Navbar';
 import FilmeGrid from './components/organisms/FilmeGrid/FilmeGrid';
 import FilmeDetalhes from './components/organisms/FilmeDetalhes/FilmeDetalhes';
+import ContatoForm from './components/organisms/ContatoForm/ContatoForm';
 import { filmesMock, getFilmeById } from './data/filmesMock';
-import type { Filme } from './types';
+import type { Filme, ContatoFormData } from './types';
 import './App.css';
 
 type PageType = 'inicio' | 'filmes' | 'detalhesFilme' | 'contato';
@@ -60,14 +61,23 @@ const DetalhesFilmePage: React.FC<DetalhesFilmePageProps> = ({ filme, onVoltar }
   );
 };
 
-const ContatoPage: React.FC = () => (
-  <div className="page-container">
-    <div className="page-content">
-      <h1>Contato</h1>
-      <p>Entre em contato conosco</p>
+const ContatoPage: React.FC = () => {
+  const handleSubmit = (data: ContatoFormData) => {
+    console.log('📧 Dados do formulário:', data);
+    alert(`Mensagem enviada com sucesso!
+    
+📧 E-mail: ${data.email}
+📋 Assunto: ${data.assunto}
+💬 Mensagem: ${data.mensagem}
+🚨 Urgente: ${data.urgencia ? 'Sim' : 'Não'}`);
+  };
+
+  return (
+    <div className="contato-page">
+      <ContatoForm onSubmit={handleSubmit} />
     </div>
-  </div>
-);
+  );
+};
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<PageType>(pages.inicio);
